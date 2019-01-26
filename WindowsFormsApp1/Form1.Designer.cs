@@ -38,6 +38,7 @@
             this.alarm1 = new System.Windows.Forms.Label();
             this.alarm2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.background = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
@@ -186,6 +187,13 @@
             this.label1.Text = "x";
             this.label1.Click += new System.EventHandler(this.label1_Click_1);
             // 
+            // background
+            // 
+            this.background.Location = new System.Drawing.Point(0, 0);
+            this.background.Name = "background";
+            this.background.Size = new System.Drawing.Size(184, 177);
+            this.background.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -202,6 +210,7 @@
             this.Controls.Add(this.numericUpDown4);
             this.Controls.Add(this.numericUpDown5);
             this.Controls.Add(this.Apply_button);
+            this.Controls.Add(this.background);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.Text = "Form1";
@@ -229,6 +238,7 @@
         private System.Windows.Forms.Label alarm1;
         private System.Windows.Forms.Label alarm2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel background;
     }
 }
 

@@ -26,11 +26,54 @@ namespace WindowsFormsApp1
             InitializeComponent();
             label1.MouseEnter += label_MouseEnter;
             label1.MouseLeave += label_MouseLeave;
+            background.MouseDown += Form1_MouseDown;
+            background.MouseMove += Form1_MouseMove;
+            background.MouseUp += Form1_MouseUp;
+        }
+
+        private Point mouseOffset;
+        private bool isMouseDown = false;
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) this.Close();
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            int xOffset;
+            int yOffset;
+
+            if (e.Button == MouseButtons.Left)
+            {
+                xOffset = e.X;
+                yOffset = e.Y;
+                mouseOffset = new Point(xOffset, yOffset);
+                isMouseDown = true;
+            }
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isMouseDown)
+            {
+                Point currentScreenPos = PointToScreen(e.Location);
+                Location = new Point(currentScreenPos.X - mouseOffset.X, currentScreenPos.Y - mouseOffset.Y);
+            }
+        }
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            // Changes the isMouseDown field so that the form does
+            // not move unless the user is pressing the left mouse button.
+            if (e.Button == MouseButtons.Left)
+            {
+                isMouseDown = false;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //decimal numericUpDown1_init, numericUpDown2_init, numericUpDown3_init, numericUpDown4_init, numericUpDown5_init, numericUpDown6_init;
             PowerShell PowerShellInstance = PowerShell.Create();
             PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_1.1 | Out-String");
             PowerShellInstance.Invoke();
@@ -169,6 +212,11 @@ namespace WindowsFormsApp1
             
         }
 
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
         private void numericUpDown5_ValueChanged(object sender, EventArgs e)
         {
 
@@ -182,17 +230,6 @@ namespace WindowsFormsApp1
         private void numericUpDown3_ValueChanged_1(object sender, EventArgs e)
         {
 
-        }
-
-        const int WM_NCHITTEST = 0x84;
-        const int HTCAPTION = 2;
-        const int HTCLIENT = 1;
-
-        protected override void WndProc(ref Message m)
-        {
-            base.WndProc(ref m);
-            if (m.Msg == WM_NCHITTEST && (int)m.Result == HTCLIENT)
-                m.Result = (IntPtr)HTCAPTION;
         }
 
         private void label1_Click(object sender, EventArgs e)
