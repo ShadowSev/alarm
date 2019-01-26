@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using WindowsInput.Native;
 using WindowsInput;
+using System.Management.Automation;
+using System.Collections.ObjectModel;
+using System.IO;
 
 namespace WindowsFormsApp1
 {
@@ -22,7 +25,37 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            PowerShell PowerShellInstance = PowerShell.Create();
+            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_1.1 | Out-String");
+            PowerShellInstance.Invoke();
+            Collection<PSObject> pSObjects = PowerShellInstance.Invoke();
+            foreach (PSObject p in pSObjects)
+            {
+                StreamWriter sw = new StreamWriter(@"C:\test.txt");
+                sw.WriteLine(p.ToString());
+                sw.Close();
+            }
+            var lines = System.IO.File.ReadAllLines(@"C:\test.txt");
+            string[] words = lines[2].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            numericUpDown1.Value = Convert.ToDecimal(words[2].Substring(0, 1));
+            numericUpDown2.Value = Convert.ToDecimal(words[2].Substring(2, 2));
+            numericUpDown3.Value = Convert.ToDecimal(words[2].Substring(5));
 
+            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_1.2 | Out-String");
+            PowerShellInstance.Invoke();
+            pSObjects = PowerShellInstance.Invoke();
+            foreach (PSObject p in pSObjects)
+            {
+                StreamWriter sw = new StreamWriter(@"C:\test.txt");
+                sw.WriteLine(p.ToString());
+                sw.Close();
+            }
+            lines = System.IO.File.ReadAllLines(@"C:\test.txt");
+            words = lines[2].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            numericUpDown4.Value = Convert.ToDecimal(words[2].Substring(0, 1));
+            numericUpDown5.Value = Convert.ToDecimal(words[2].Substring(2, 2));
+            numericUpDown6.Value = Convert.ToDecimal(words[2].Substring(5));
+            File.Delete(@"C:\test.txt");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -42,14 +75,16 @@ namespace WindowsFormsApp1
             pwrshllin1 = "Schtasks /Change /TN alarm_1.1 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value;
             pwrshllin2 = "Schtasks /Change /TN alarm_1.2 /ST " + timearr[3] + numericUpDown4.Value + ":" + timearr[4] + numericUpDown5.Value + ":" + timearr[5] + numericUpDown6.Value;
 
+            /*PowerShell PowerShellInstance = PowerShell.Create();
+            PowerShellInstance.AddScript(@"Invoke-Command -ComputerName s4sh-desk -ScriptBlock {Schtasks /Change /TN alarm_1.1 /ST 00:00:00} -Credential s4sh-desk\s4sh | Out-String");
+            PowerShellInstance.Invoke();*/
             Process p = new Process();
-            InputSimulator Simulator = new InputSimulator();
             p.StartInfo.FileName = "powershell.exe";
             p.StartInfo.Arguments = pwrshllin1;
-            p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = false;
             p.StartInfo.Verb = "runas";
             p.Start();
+            InputSimulator Simulator = new InputSimulator();
             Simulator.Mouse.MoveMouseTo(30000, 35000);
             Simulator.Mouse.Sleep(30);
             Simulator.Mouse.LeftButtonClick();
@@ -61,7 +96,6 @@ namespace WindowsFormsApp1
 
             p.StartInfo.FileName = "powershell.exe";
             p.StartInfo.Arguments = pwrshllin2;
-            p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = false;
             p.StartInfo.Verb = "runas";
             p.Start();
