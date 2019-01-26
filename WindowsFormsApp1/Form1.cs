@@ -18,13 +18,19 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        public decimal numericUpDown1_init, numericUpDown2_init, numericUpDown3_init, numericUpDown4_init, numericUpDown5_init, numericUpDown6_init;
+        public Color OriginalBackground;
+
         public Form1()
         {
             InitializeComponent();
+            label1.MouseEnter += label_MouseEnter;
+            label1.MouseLeave += label_MouseLeave;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //decimal numericUpDown1_init, numericUpDown2_init, numericUpDown3_init, numericUpDown4_init, numericUpDown5_init, numericUpDown6_init;
             PowerShell PowerShellInstance = PowerShell.Create();
             PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_1.1 | Out-String");
             PowerShellInstance.Invoke();
@@ -37,9 +43,9 @@ namespace WindowsFormsApp1
             }
             var lines = System.IO.File.ReadAllLines(@"C:\test.txt");
             string[] words = lines[2].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            numericUpDown1.Value = Convert.ToDecimal(words[2].Substring(0, 1));
-            numericUpDown2.Value = Convert.ToDecimal(words[2].Substring(2, 2));
-            numericUpDown3.Value = Convert.ToDecimal(words[2].Substring(5));
+            numericUpDown1.Value = numericUpDown1_init = Convert.ToDecimal(words[2].Substring(0, 1));
+            numericUpDown2.Value = numericUpDown2_init = Convert.ToDecimal(words[2].Substring(2, 2));
+            numericUpDown3.Value = numericUpDown3_init = Convert.ToDecimal(words[2].Substring(5));
 
             PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_1.2 | Out-String");
             PowerShellInstance.Invoke();
@@ -52,13 +58,29 @@ namespace WindowsFormsApp1
             }
             lines = System.IO.File.ReadAllLines(@"C:\test.txt");
             words = lines[2].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            numericUpDown4.Value = Convert.ToDecimal(words[2].Substring(0, 1));
-            numericUpDown5.Value = Convert.ToDecimal(words[2].Substring(2, 2));
-            numericUpDown6.Value = Convert.ToDecimal(words[2].Substring(5));
+            numericUpDown4.Value = numericUpDown4_init = Convert.ToDecimal(words[2].Substring(0, 1));
+            numericUpDown5.Value = numericUpDown5_init = Convert.ToDecimal(words[2].Substring(2, 2));
+            numericUpDown6.Value = numericUpDown6_init = Convert.ToDecimal(words[2].Substring(5));
             File.Delete(@"C:\test.txt");
         }
 
+        private void label_MouseEnter(object sender, EventArgs e)
+        {
+            OriginalBackground = ((Label)sender).ForeColor;
+            ((Label)sender).ForeColor = Color.Red;
+        }
+
+        private void label_MouseLeave(object sender, EventArgs e)
+        {
+            ((Label)sender).ForeColor = OriginalBackground;
+        }
+
         private void button1_Click(object sender, EventArgs e)
+        {
+            ApplyChanges();
+        }
+
+        private void ApplyChanges()
         {
             string pwrshllin1, pwrshllin2;
             int[] updownarr = { Convert.ToInt32(numericUpDown1.Value), Convert.ToInt32(numericUpDown2.Value), Convert.ToInt32(numericUpDown3.Value), Convert.ToInt32(numericUpDown4.Value), Convert.ToInt32(numericUpDown5.Value), Convert.ToInt32(numericUpDown6.Value) };
@@ -108,6 +130,30 @@ namespace WindowsFormsApp1
             Simulator.Mouse.Sleep(30);
         }
 
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(numericUpDown1.Value) != numericUpDown1_init || Convert.ToInt32(numericUpDown2.Value) != numericUpDown2_init || Convert.ToInt32(numericUpDown3.Value) != numericUpDown3_init || Convert.ToInt32(numericUpDown4.Value) != numericUpDown4_init || Convert.ToInt32(numericUpDown5.Value) != numericUpDown5_init || Convert.ToInt32(numericUpDown6.Value) != numericUpDown6_init)
+            {
+                DialogResult result = MessageBox.Show("Были внесены изменения, произвести сохранение?", "Подтвердите действие", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    ApplyChanges();
+                    this.Close();
+                }
+                else if (result == DialogResult.No)
+                {
+                    this.Close();
+                }
+                else if (result == DialogResult.Cancel)
+                {
+
+                }
+            }
+            else
+                this.Close();
+        }
+
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             
@@ -134,6 +180,27 @@ namespace WindowsFormsApp1
         }
 
         private void numericUpDown3_ValueChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        const int WM_NCHITTEST = 0x84;
+        const int HTCAPTION = 2;
+        const int HTCLIENT = 1;
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            if (m.Msg == WM_NCHITTEST && (int)m.Result == HTCLIENT)
+                m.Result = (IntPtr)HTCAPTION;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
