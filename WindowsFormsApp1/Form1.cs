@@ -20,23 +20,20 @@ namespace WindowsFormsApp1
     {
         public decimal numericUpDown1_init, numericUpDown2_init, numericUpDown3_init, numericUpDown4_init, numericUpDown5_init, numericUpDown6_init;
         public Color OriginalBackground;
+        private Point mouseOffset;
+        private bool isMouseDown = false;
 
         public Form1()
         {
             InitializeComponent();
-            label1.MouseEnter += label_MouseEnter;
-            label1.MouseLeave += label_MouseLeave;
+            close_window.MouseEnter += label_MouseEnter;
+            close_window.MouseLeave += label_MouseLeave;
             background.MouseDown += Form1_MouseDown;
             background.MouseMove += Form1_MouseMove;
             background.MouseUp += Form1_MouseUp;
-        }
-
-        private Point mouseOffset;
-        private bool isMouseDown = false;
-
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape) this.Close();
+            //trayicon.Visible = false;
+            this.trayicon.MouseClick += new MouseEventHandler(trayicon_MouseClick);
+            this.Resize += new System.EventHandler(this.Form1_Resize);
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -118,7 +115,7 @@ namespace WindowsFormsApp1
             ((Label)sender).ForeColor = OriginalBackground;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void apply_button_Click(object sender, EventArgs e)
         {
             ApplyChanges();
         }
@@ -171,9 +168,16 @@ namespace WindowsFormsApp1
             Simulator.Mouse.Sleep(30);
             Simulator.Keyboard.KeyPress(VirtualKeyCode.RETURN);
             Simulator.Mouse.Sleep(30);
+
+            numericUpDown1_init = numericUpDown1.Value;
+            numericUpDown2_init = numericUpDown2.Value;
+            numericUpDown3_init = numericUpDown3.Value;
+            numericUpDown4_init = numericUpDown4.Value;
+            numericUpDown5_init = numericUpDown5.Value;
+            numericUpDown6_init = numericUpDown6.Value;
         }
 
-        private void label1_Click_1(object sender, EventArgs e)
+        private void close_window_Click(object sender, EventArgs e)
         {
             if (Convert.ToInt32(numericUpDown1.Value) != numericUpDown1_init || Convert.ToInt32(numericUpDown2.Value) != numericUpDown2_init || Convert.ToInt32(numericUpDown3.Value) != numericUpDown3_init || Convert.ToInt32(numericUpDown4.Value) != numericUpDown4_init || Convert.ToInt32(numericUpDown5.Value) != numericUpDown5_init || Convert.ToInt32(numericUpDown6.Value) != numericUpDown6_init)
             {
@@ -197,49 +201,25 @@ namespace WindowsFormsApp1
                 this.Close();
         }
 
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        private void minimized_Click(object sender, EventArgs e)
         {
-            
+            this.WindowState = FormWindowState.Minimized;
         }
 
-        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        private void Form1_Resize(object sender, EventArgs e)
         {
-
+            if (WindowState == FormWindowState.Minimized)
+            {
+                this.ShowInTaskbar = false;
+                trayicon.Visible = true;
+            }
         }
 
-        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        private void trayicon_MouseClick(object sender, MouseEventArgs e)
         {
-            
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown5_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown2_ValueChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown3_ValueChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
+            trayicon.Visible = false;
+            this.ShowInTaskbar = true;
+            WindowState = FormWindowState.Normal;
         }
     }
 }
