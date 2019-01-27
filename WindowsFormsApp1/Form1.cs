@@ -86,6 +86,7 @@ namespace WindowsFormsApp1
         {
             ApplyChanges("alarm_1.1");
             ApplyChanges("alarm_1.2");
+            ApplyChanges("alarm_1.3");
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
