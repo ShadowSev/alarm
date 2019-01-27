@@ -18,25 +18,74 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        public decimal numericUpDown1_init, numericUpDown2_init, numericUpDown3_init, numericUpDown4_init, numericUpDown5_init, numericUpDown6_init;
+        public decimal numericUpDown1_init, numericUpDown2_init, numericUpDown3_init;
         public Color OriginalBackground;
         public int UpDownSymb2, UpDownSymb3, UpDownSymb5;
         public string timeString;
-        public string pwrshllin1, pwrshllin2;
         public string tempPath = System.IO.Path.GetTempPath();
+        public bool afterTray = false;
         private Point mouseOffset;
         private bool isMouseDown = false;
 
         public Form1()
         {
             InitializeComponent();
-            close_window.MouseEnter += label_MouseEnter;
+            close_window.MouseEnter += label_MouseEnter1;
             close_window.MouseLeave += label_MouseLeave;
+            minimized.MouseEnter += label_MouseEnter2;
+            minimized.MouseLeave += label_MouseLeave;
             background.MouseDown += Form1_MouseDown;
             background.MouseMove += Form1_MouseMove;
             background.MouseUp += Form1_MouseUp;
             this.trayicon.MouseClick += new MouseEventHandler(trayicon_MouseClick);
             this.Resize += new System.EventHandler(this.Form1_Resize);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            schtasks_read();
+        }
+
+        private void schtasks_read()
+        {
+            PowerShell PowerShellInstance = PowerShell.Create();
+            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_1.1 | Out-String");
+            PowerShellInstance.Invoke();
+            Collection<PSObject> pSObjects = PowerShellInstance.Invoke();
+            foreach (PSObject p in pSObjects)
+            {
+                StreamWriter sw = new StreamWriter(tempPath + @"schtasksParam.txt");
+                sw.WriteLine(p.ToString());
+                sw.Close();
+            }
+            schtasks_fileread();
+            numericUpDown1.Value = numericUpDown1_init = Convert.ToDecimal(timeString.Substring(0, UpDownSymb2));
+            numericUpDown2.Value = numericUpDown2_init = Convert.ToDecimal(timeString.Substring(UpDownSymb3, 2));
+            numericUpDown3.Value = numericUpDown3_init = Convert.ToDecimal(timeString.Substring(UpDownSymb5));
+            File.Delete(tempPath + @"schtasksParam.txt");
+        }
+
+        private void label_MouseEnter1(object sender, EventArgs e)
+        {
+            OriginalBackground = ((Label)sender).ForeColor;
+            ((Label)sender).ForeColor = Color.Red;
+        }
+
+        private void label_MouseEnter2(object sender, EventArgs e)
+        {
+            OriginalBackground = ((Label)sender).ForeColor;
+            ((Label)sender).ForeColor = Color.FromArgb(255, 117, 132, 148);
+        }
+
+        private void label_MouseLeave(object sender, EventArgs e)
+        {
+                ((Label)sender).ForeColor = OriginalBackground;
+        }
+
+        private void apply_button_Click(object sender, EventArgs e)
+        {
+            ApplyChanges("alarm_1.1");
+            ApplyChanges("alarm_1.2");
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -70,46 +119,9 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            schtasks_read();
-        }
-
-        private void schtasks_read()
-        {
-            PowerShell PowerShellInstance = PowerShell.Create();
-            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_1.1 | Out-String");
-            PowerShellInstance.Invoke();
-            Collection<PSObject> pSObjects = PowerShellInstance.Invoke();
-            foreach (PSObject p in pSObjects)
-            {
-                StreamWriter sw = new StreamWriter(tempPath + @"test.txt");
-                sw.WriteLine(p.ToString());
-                sw.Close();
-            }
-            schtasks_fileread();
-            numericUpDown1.Value = numericUpDown1_init = Convert.ToDecimal(timeString.Substring(0, UpDownSymb2));
-            numericUpDown2.Value = numericUpDown2_init = Convert.ToDecimal(timeString.Substring(UpDownSymb3, 2));
-            numericUpDown3.Value = numericUpDown3_init = Convert.ToDecimal(timeString.Substring(UpDownSymb5));
-            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_1.2 | Out-String");
-            PowerShellInstance.Invoke();
-            pSObjects = PowerShellInstance.Invoke();
-            foreach (PSObject p in pSObjects)
-            {
-                StreamWriter sw = new StreamWriter(tempPath + @"test.txt");
-                sw.WriteLine(p.ToString());
-                sw.Close();
-            }
-            schtasks_fileread();
-            numericUpDown4.Value = numericUpDown4_init = Convert.ToDecimal(timeString.Substring(0, UpDownSymb2));
-            numericUpDown5.Value = numericUpDown5_init = Convert.ToDecimal(timeString.Substring(UpDownSymb3, 2));
-            numericUpDown6.Value = numericUpDown6_init = Convert.ToDecimal(timeString.Substring(UpDownSymb5));
-            File.Delete(tempPath + @"test.txt");
-        }
-
         private void schtasks_fileread()
         {
-            var lines = System.IO.File.ReadAllLines(tempPath + @"test.txt");
+            var lines = System.IO.File.ReadAllLines(tempPath + @"schtasksParam.txt");
             string[] words = lines[2].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             timeString = words[2];
             if ((timeString.Substring(1, 1)) != ":")
@@ -126,52 +138,26 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void label_MouseEnter(object sender, EventArgs e)
+        private void background_Paint(object sender, PaintEventArgs e)
         {
-            OriginalBackground = ((Label)sender).ForeColor;
-            ((Label)sender).ForeColor = Color.Red;
+
         }
 
-        private void label_MouseLeave(object sender, EventArgs e)
+        private void ApplyChanges(object sender)
         {
-            ((Label)sender).ForeColor = OriginalBackground;
-        }
+            int[] updownarr = { Convert.ToInt32(numericUpDown1.Value), Convert.ToInt32(numericUpDown2.Value), Convert.ToInt32(numericUpDown3.Value) };
+            string[] timearr = new string[3];
 
-        private void apply_button_Click(object sender, EventArgs e)
-        {
-            ApplyChanges();
-        }
-
-        private void ApplyChanges()
-        {
-            
-            int[] updownarr = { Convert.ToInt32(numericUpDown1.Value), Convert.ToInt32(numericUpDown2.Value), Convert.ToInt32(numericUpDown3.Value), Convert.ToInt32(numericUpDown4.Value), Convert.ToInt32(numericUpDown5.Value), Convert.ToInt32(numericUpDown6.Value) };
-            string[] timearr = new string[6];
-
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 3; i++)
             {
                 if ((updownarr[i] >= 0) && (updownarr[i] < 10))
                     timearr[i] = "0";
                 else
                     timearr[i] = "";
             }
-            pwrshllin1 = "Schtasks /Change /TN alarm_1.1 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value;
-            pwrshllin2 = "Schtasks /Change /TN alarm_1.2 /ST " + timearr[3] + numericUpDown4.Value + ":" + timearr[4] + numericUpDown5.Value + ":" + timearr[5] + numericUpDown6.Value;
-            uacSolver(pwrshllin1);
-            uacSolver(pwrshllin2);
-            numericUpDown1_init = numericUpDown1.Value;
-            numericUpDown2_init = numericUpDown2.Value;
-            numericUpDown3_init = numericUpDown3.Value;
-            numericUpDown4_init = numericUpDown4.Value;
-            numericUpDown5_init = numericUpDown5.Value;
-            numericUpDown6_init = numericUpDown6.Value;
-        }
-
-        private void uacSolver(string sender)
-        {
             Process p = new Process();
             p.StartInfo.FileName = "powershell.exe";
-            p.StartInfo.Arguments = sender;
+            p.StartInfo.Arguments = "Schtasks /Change /TN " + sender + " /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value; ;
             p.StartInfo.RedirectStandardOutput = false;
             p.StartInfo.Verb = "runas";
             p.Start();
@@ -187,17 +173,21 @@ namespace WindowsFormsApp1
             /*PowerShell PowerShellInstance = PowerShell.Create();
             PowerShellInstance.AddScript(@"Invoke-Command -ComputerName s4sh-desk -ScriptBlock {Schtasks /Change /TN alarm_1.1 /ST 00:00:00} -Credential s4sh-desk\s4sh | Out-String");
             PowerShellInstance.Invoke();*/
+            numericUpDown1_init = numericUpDown1.Value;
+            numericUpDown2_init = numericUpDown2.Value;
+            numericUpDown3_init = numericUpDown3.Value;
         }
 
         private void close_window_Click(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(numericUpDown1.Value) != numericUpDown1_init || Convert.ToInt32(numericUpDown2.Value) != numericUpDown2_init || Convert.ToInt32(numericUpDown3.Value) != numericUpDown3_init || Convert.ToInt32(numericUpDown4.Value) != numericUpDown4_init || Convert.ToInt32(numericUpDown5.Value) != numericUpDown5_init || Convert.ToInt32(numericUpDown6.Value) != numericUpDown6_init)
+            if (Convert.ToInt32(numericUpDown1.Value) != numericUpDown1_init || Convert.ToInt32(numericUpDown2.Value) != numericUpDown2_init || Convert.ToInt32(numericUpDown3.Value) != numericUpDown3_init)
             {
                 DialogResult result = MessageBox.Show("Были внесены изменения, произвести сохранение?", "Подтвердите действие", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
-                    ApplyChanges();
+                    ApplyChanges("alarm_1.1");
+                    ApplyChanges("alarm_1.2");
                     this.Close();
                 }
                 else if (result == DialogResult.No)
@@ -216,6 +206,7 @@ namespace WindowsFormsApp1
         private void minimized_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+            minimized.ForeColor = OriginalBackground;
         }
 
         private void Form1_Resize(object sender, EventArgs e)

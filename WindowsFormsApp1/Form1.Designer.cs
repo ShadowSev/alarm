@@ -34,11 +34,7 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
             this.alarm1 = new System.Windows.Forms.Label();
-            this.alarm2 = new System.Windows.Forms.Label();
             this.close_window = new System.Windows.Forms.Label();
             this.background = new System.Windows.Forms.Panel();
             this.minimized = new System.Windows.Forms.Label();
@@ -46,9 +42,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
             this.background.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +63,7 @@
             // 
             this.numericUpDown1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(85)))), ((int)(((byte)(111)))));
             this.numericUpDown1.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.numericUpDown1.Location = new System.Drawing.Point(30, 46);
+            this.numericUpDown1.Location = new System.Drawing.Point(32, 76);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             23,
             0,
@@ -84,7 +77,7 @@
             // 
             this.numericUpDown2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(85)))), ((int)(((byte)(111)))));
             this.numericUpDown2.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.numericUpDown2.Location = new System.Drawing.Point(74, 46);
+            this.numericUpDown2.Location = new System.Drawing.Point(76, 76);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             59,
             0,
@@ -98,7 +91,7 @@
             // 
             this.numericUpDown3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(85)))), ((int)(((byte)(111)))));
             this.numericUpDown3.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.numericUpDown3.Location = new System.Drawing.Point(118, 46);
+            this.numericUpDown3.Location = new System.Drawing.Point(120, 76);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             59,
             0,
@@ -108,69 +101,16 @@
             this.numericUpDown3.Size = new System.Drawing.Size(38, 20);
             this.numericUpDown3.TabIndex = 3;
             // 
-            // numericUpDown4
-            // 
-            this.numericUpDown4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(85)))), ((int)(((byte)(111)))));
-            this.numericUpDown4.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.numericUpDown4.Location = new System.Drawing.Point(30, 95);
-            this.numericUpDown4.Maximum = new decimal(new int[] {
-            23,
-            0,
-            0,
-            0});
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(38, 20);
-            this.numericUpDown4.TabIndex = 4;
-            // 
-            // numericUpDown5
-            // 
-            this.numericUpDown5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(85)))), ((int)(((byte)(111)))));
-            this.numericUpDown5.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.numericUpDown5.Location = new System.Drawing.Point(74, 95);
-            this.numericUpDown5.Maximum = new decimal(new int[] {
-            59,
-            0,
-            0,
-            0});
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(38, 20);
-            this.numericUpDown5.TabIndex = 5;
-            // 
-            // numericUpDown6
-            // 
-            this.numericUpDown6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(85)))), ((int)(((byte)(111)))));
-            this.numericUpDown6.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.numericUpDown6.Location = new System.Drawing.Point(118, 95);
-            this.numericUpDown6.Maximum = new decimal(new int[] {
-            59,
-            0,
-            0,
-            0});
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(38, 20);
-            this.numericUpDown6.TabIndex = 6;
-            // 
             // alarm1
             // 
             this.alarm1.AutoSize = true;
             this.alarm1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.alarm1.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.alarm1.Location = new System.Drawing.Point(53, 20);
+            this.alarm1.ForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.alarm1.Location = new System.Drawing.Point(57, 38);
             this.alarm1.Name = "alarm1";
-            this.alarm1.Size = new System.Drawing.Size(84, 16);
+            this.alarm1.Size = new System.Drawing.Size(79, 16);
             this.alarm1.TabIndex = 7;
-            this.alarm1.Text = "Будильник 1";
-            // 
-            // alarm2
-            // 
-            this.alarm2.AutoSize = true;
-            this.alarm2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.alarm2.ForeColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.alarm2.Location = new System.Drawing.Point(51, 72);
-            this.alarm2.Name = "alarm2";
-            this.alarm2.Size = new System.Drawing.Size(84, 16);
-            this.alarm2.TabIndex = 8;
-            this.alarm2.Text = "Будильник 2";
+            this.alarm1.Text = "Set the time";
             // 
             // close_window
             // 
@@ -187,10 +127,15 @@
             // background
             // 
             this.background.Controls.Add(this.minimized);
+            this.background.Controls.Add(this.numericUpDown1);
+            this.background.Controls.Add(this.alarm1);
+            this.background.Controls.Add(this.numericUpDown2);
+            this.background.Controls.Add(this.numericUpDown3);
             this.background.Location = new System.Drawing.Point(0, 0);
             this.background.Name = "background";
             this.background.Size = new System.Drawing.Size(184, 177);
             this.background.TabIndex = 10;
+            this.background.Paint += new System.Windows.Forms.PaintEventHandler(this.background_Paint);
             // 
             // minimized
             // 
@@ -217,27 +162,16 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(46)))), ((int)(((byte)(69)))));
             this.ClientSize = new System.Drawing.Size(184, 177);
             this.Controls.Add(this.close_window);
-            this.Controls.Add(this.alarm2);
-            this.Controls.Add(this.alarm1);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.numericUpDown2);
-            this.Controls.Add(this.numericUpDown3);
-            this.Controls.Add(this.numericUpDown4);
-            this.Controls.Add(this.numericUpDown5);
-            this.Controls.Add(this.numericUpDown6);
             this.Controls.Add(this.apply_button);
             this.Controls.Add(this.background);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Alarm";
+            this.Name = "Form1";
             this.Text = "Alarm";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
             this.background.ResumeLayout(false);
             this.background.PerformLayout();
             this.ResumeLayout(false);
@@ -248,14 +182,10 @@
         #endregion
 
         private System.Windows.Forms.Button apply_button;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
-        private System.Windows.Forms.NumericUpDown numericUpDown6;
         private System.Windows.Forms.NumericUpDown numericUpDown3;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label alarm1;
-        private System.Windows.Forms.Label alarm2;
         private System.Windows.Forms.Label close_window;
         private System.Windows.Forms.Panel background;
         private System.Windows.Forms.Label minimized;
