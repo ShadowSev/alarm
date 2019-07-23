@@ -27,6 +27,7 @@ namespace WindowsFormsApp1
         private Point mouseOffset;
         private bool isMouseDown = false;
 
+        //Create form
         public Form1()
         {
             InitializeComponent();
@@ -41,15 +42,48 @@ namespace WindowsFormsApp1
             this.Resize += new System.EventHandler(this.Form1_Resize);
         }
 
+        //Load form
         private void Form1_Load(object sender, EventArgs e)
         {
-            schtasks_read();
+            schtasks_check();
         }
 
+        //Checking tasks for existence
+        private void schtasks_check()
+        {
+            Directory.CreateDirectory(tempPath + @"alarm");
+            PowerShell PowerShellInstance = PowerShell.Create();
+            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_1 > $env:temp\alarm\schtasksList.txt");
+            PowerShellInstance.Invoke();
+            if (new FileInfo(tempPath + @"alarm\schtasksList.txt").Length == 0)
+            {
+                File.Delete(tempPath + @"alarm\schtasksList.txt");
+                Directory.Delete(tempPath + @"alarm");
+                schtasks_create();
+            }
+            else
+            {
+                File.Delete(tempPath + @"alarm\schtasksList.txt");
+                Directory.Delete(tempPath + @"alarm");
+                schtasks_read();
+            }
+        }
+
+        //Creating tasks
+        private void schtasks_create()
+        {
+            PowerShell PowerShellInstance = PowerShell.Create();
+            PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /ST 08:00:00 /TR C:\yandexradio.url");
+            PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /ST 08:00:00 /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\MouseMove.exe""");
+            PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /ST 08:00:00 /TR ");
+            PowerShellInstance.Invoke();
+        }
+
+        //Call task --> writing task parameters to file --> redefinition task parameters --> writing parameters to variables --> deleting file
         private void schtasks_read()
         {
             PowerShell PowerShellInstance = PowerShell.Create();
-            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_1.1 | Out-String");
+            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_1 | Out-String");
             PowerShellInstance.Invoke();
             Collection<PSObject> pSObjects = PowerShellInstance.Invoke();
             foreach (PSObject p in pSObjects)
@@ -65,61 +99,7 @@ namespace WindowsFormsApp1
             File.Delete(tempPath + @"schtasksParam.txt");
         }
 
-        private void label_MouseEnter1(object sender, EventArgs e)
-        {
-            OriginalBackground = ((Label)sender).ForeColor;
-            ((Label)sender).ForeColor = Color.Red;
-        }
-
-        private void label_MouseEnter2(object sender, EventArgs e)
-        {
-            OriginalBackground = ((Label)sender).ForeColor;
-            ((Label)sender).ForeColor = Color.FromArgb(255, 117, 132, 148);
-        }
-
-        private void label_MouseLeave(object sender, EventArgs e)
-        {
-                ((Label)sender).ForeColor = OriginalBackground;
-        }
-
-        private void apply_button_Click(object sender, EventArgs e)
-        {
-            ApplyChanges("alarm_1.1");
-            ApplyChanges("alarm_1.2");
-            ApplyChanges("alarm_1.3");
-        }
-
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
-        {
-            int xOffset;
-            int yOffset;
-
-            if (e.Button == MouseButtons.Left)
-            {
-                xOffset = e.X;
-                yOffset = e.Y;
-                mouseOffset = new Point(xOffset, yOffset);
-                isMouseDown = true;
-            }
-        }
-
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (isMouseDown)
-            {
-                Point currentScreenPos = PointToScreen(e.Location);
-                Location = new Point(currentScreenPos.X - mouseOffset.X, currentScreenPos.Y - mouseOffset.Y);
-            }
-        }
-
-        private void Form1_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                isMouseDown = false;
-            }
-        }
-
+        //Reading schtasks parameters from file
         private void schtasks_fileread()
         {
             var lines = System.IO.File.ReadAllLines(tempPath + @"schtasksParam.txt");
@@ -138,12 +118,75 @@ namespace WindowsFormsApp1
                 UpDownSymb5 = 5;
             }
         }
+        
+        //Coloring buttons
+        private void label_MouseEnter1(object sender, EventArgs e)
+        {
+            OriginalBackground = ((Label)sender).ForeColor;
+            ((Label)sender).ForeColor = Color.Red;
+        }
+
+        //Coloring buttons
+        private void label_MouseEnter2(object sender, EventArgs e)
+        {
+            OriginalBackground = ((Label)sender).ForeColor;
+            ((Label)sender).ForeColor = Color.FromArgb(255, 117, 132, 148);
+        }
+
+        //Coloring buttons
+        private void label_MouseLeave(object sender, EventArgs e)
+        {
+                ((Label)sender).ForeColor = OriginalBackground;
+        }
+
+        //"Apply" button
+        private void apply_button_Click(object sender, EventArgs e)
+        {
+            ApplyChanges("alarm_1");
+            ApplyChanges("alarm_2");
+            ApplyChanges("alarm_3");
+        }
+
+        //Traking if mouse is down on form
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            int xOffset;
+            int yOffset;
+
+            if (e.Button == MouseButtons.Left)
+            {
+                xOffset = e.X;
+                yOffset = e.Y;
+                mouseOffset = new Point(xOffset, yOffset);
+                isMouseDown = true;
+            }
+        }
+
+        //Form moving with down mouse
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isMouseDown)
+            {
+                Point currentScreenPos = PointToScreen(e.Location);
+                Location = new Point(currentScreenPos.X - mouseOffset.X, currentScreenPos.Y - mouseOffset.Y);
+            }
+        }
+
+        //Traking if mouse is up on form
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isMouseDown = false;
+            }
+        }
 
         private void background_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
+        //Saving edited schtasks parameters
         private void ApplyChanges(object sender)
         {
             int[] updownarr = { Convert.ToInt32(numericUpDown1.Value), Convert.ToInt32(numericUpDown2.Value), Convert.ToInt32(numericUpDown3.Value) };
@@ -179,6 +222,7 @@ namespace WindowsFormsApp1
             numericUpDown3_init = numericUpDown3.Value;
         }
 
+        //Exit form
         private void close_window_Click(object sender, EventArgs e)
         {
             if (Convert.ToInt32(numericUpDown1.Value) != numericUpDown1_init || Convert.ToInt32(numericUpDown2.Value) != numericUpDown2_init || Convert.ToInt32(numericUpDown3.Value) != numericUpDown3_init)
@@ -187,8 +231,8 @@ namespace WindowsFormsApp1
 
                 if (result == DialogResult.Yes)
                 {
-                    ApplyChanges("alarm_1.1");
-                    ApplyChanges("alarm_1.2");
+                    ApplyChanges("alarm_1");
+                    ApplyChanges("alarm_2");
                     this.Close();
                 }
                 else if (result == DialogResult.No)
@@ -204,6 +248,7 @@ namespace WindowsFormsApp1
                 this.Close();
         }
 
+        //Minimizing form
         private void minimized_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -219,6 +264,7 @@ namespace WindowsFormsApp1
             }
         }
 
+        //Clicking on tray icon
         private void trayicon_MouseClick(object sender, MouseEventArgs e)
         {
             trayicon.Visible = false;
