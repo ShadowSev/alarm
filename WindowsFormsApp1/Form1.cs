@@ -75,7 +75,7 @@ namespace WindowsFormsApp1
             PowerShell PowerShellInstance = PowerShell.Create();
             PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /ST 08:00:00 /TR C:\yandexradio.url");
             PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /ST 08:00:00 /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\MouseMove.exe""");
-            PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /ST 08:00:00 /TR ");
+            //PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /ST 08:00:00 /TR ");
             PowerShellInstance.Invoke();
         }
 
@@ -144,7 +144,7 @@ namespace WindowsFormsApp1
         {
             ApplyChanges("alarm_1");
             ApplyChanges("alarm_2");
-            ApplyChanges("alarm_3");
+            //ApplyChanges("alarm_3");
         }
 
         //Traking if mouse is down on form
@@ -199,9 +199,15 @@ namespace WindowsFormsApp1
                 else
                     timearr[i] = "";
             }
-            Process p = new Process();
+            PowerShell PowerShellInstance = PowerShell.Create();
+            PowerShellInstance.AddScript(@"Schtasks /Delete /TN " + sender + " /F");
+            PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN " + sender + " /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + " /TR C:\\yandexradio.url");
+            PowerShellInstance.Invoke();
+            //PowerShellInstance.AddScript(@"Schtasks /Change /TN " + sender + " /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + " /s mtdw10nb04 /ru " + "itfb\a.podchasov" + " /rp " + "2G_uXkME-t");
+
+            /*Process p = new Process();
             p.StartInfo.FileName = "powershell.exe";
-            p.StartInfo.Arguments = "Schtasks /Change /TN " + sender + " /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value; ;
+            p.StartInfo.Arguments = "Schtasks /Change /TN " + sender + " /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value;
             p.StartInfo.RedirectStandardOutput = false;
             p.StartInfo.Verb = "runas";
             p.Start();
@@ -213,7 +219,8 @@ namespace WindowsFormsApp1
             Simulator.Keyboard.TextEntry("193203");
             Simulator.Mouse.Sleep(30);
             Simulator.Keyboard.KeyPress(VirtualKeyCode.RETURN);
-            Simulator.Mouse.Sleep(30);
+            Simulator.Mouse.Sleep(30);*/
+
             /*PowerShell PowerShellInstance = PowerShell.Create();
             PowerShellInstance.AddScript(@"Invoke-Command -ComputerName s4sh-desk -ScriptBlock {Schtasks /Change /TN alarm_1.1 /ST 00:00:00} -Credential s4sh-desk\s4sh | Out-String");
             PowerShellInstance.Invoke();*/
