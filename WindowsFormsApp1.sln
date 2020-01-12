@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{E4A97207-5FE0-434E-BB9A-2B8185AEB2CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsForm", "WindowsFormsApp1\SettingsForm.csproj", "{E4A97207-5FE0-434E-BB9A-2B8185AEB2CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MouseMove", "ConsoleApp1\MouseMove.csproj", "{20509C29-6464-443F-8F1D-0E9DF693E760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeSetup", "ConsoleApp2\VolumeSetup.csproj", "{079B3559-83BC-4513-A269-8E1B04D065EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{E4A97207-5FE0-434E-BB9A-2B8185AEB2CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4A97207-5FE0-434E-BB9A-2B8185AEB2CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4A97207-5FE0-434E-BB9A-2B8185AEB2CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20509C29-6464-443F-8F1D-0E9DF693E760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20509C29-6464-443F-8F1D-0E9DF693E760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20509C29-6464-443F-8F1D-0E9DF693E760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20509C29-6464-443F-8F1D-0E9DF693E760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{079B3559-83BC-4513-A269-8E1B04D065EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{079B3559-83BC-4513-A269-8E1B04D065EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{079B3559-83BC-4513-A269-8E1B04D065EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{079B3559-83BC-4513-A269-8E1B04D065EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
