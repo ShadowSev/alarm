@@ -29,6 +29,7 @@ namespace WindowsFormsApp1
 
         public Form1()
         {
+            schtasks_Check();
             InitializeComponent();
             close_window.MouseEnter += label_MouseEnter1;
             close_window.MouseLeave += label_MouseLeave;
@@ -41,28 +42,53 @@ namespace WindowsFormsApp1
             this.Resize += new System.EventHandler(this.Form1_Resize);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void schtasks_Check()
         {
-            schtasks_read();
+            schtasks_FileWrite("Schtasks /Query /FO TABLE /NH | Out-String");
+            
         }
 
-        private void schtasks_read()
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            schtasks_FileWrite("Schtasks /Query /NH /TN alarm_1.1 | Out-String");
+        }
+
+        private void schtasks_FileWrite(string sender)
         {
             PowerShell PowerShellInstance = PowerShell.Create();
-            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_1.1 | Out-String");
+            PowerShellInstance.AddScript(sender);
             PowerShellInstance.Invoke();
             Collection<PSObject> pSObjects = PowerShellInstance.Invoke();
             foreach (PSObject p in pSObjects)
             {
-                StreamWriter sw = new StreamWriter(tempPath + @"schtasksParam.txt");
+                StreamWriter sw = new StreamWriter(tempPath + @"schtasksRead.txt");
                 sw.WriteLine(p.ToString());
                 sw.Close();
             }
-            schtasks_fileread();
+            schtasks_FileRead();
             numericUpDown1.Value = numericUpDown1_init = Convert.ToDecimal(timeString.Substring(0, UpDownSymb2));
             numericUpDown2.Value = numericUpDown2_init = Convert.ToDecimal(timeString.Substring(UpDownSymb3, 2));
             numericUpDown3.Value = numericUpDown3_init = Convert.ToDecimal(timeString.Substring(UpDownSymb5));
-            File.Delete(tempPath + @"schtasksParam.txt");
+            File.Delete(tempPath + @"schtasksRead.txt");
+        }
+
+        private void schtasks_FileRead()
+        {
+            var lines = System.IO.File.ReadAllLines(tempPath + @"schtasksRead.txt");
+            string[] words = lines[2].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            timeString = words[2];
+            if ((timeString.Substring(1, 1)) != ":")
+            {
+                UpDownSymb2 = 2;
+                UpDownSymb3 = 3;
+                UpDownSymb5 = 6;
+            }
+            else
+            {
+                UpDownSymb2 = 1;
+                UpDownSymb3 = 2;
+                UpDownSymb5 = 5;
+            }
         }
 
         private void label_MouseEnter1(object sender, EventArgs e)
@@ -117,25 +143,6 @@ namespace WindowsFormsApp1
             if (e.Button == MouseButtons.Left)
             {
                 isMouseDown = false;
-            }
-        }
-
-        private void schtasks_fileread()
-        {
-            var lines = System.IO.File.ReadAllLines(tempPath + @"schtasksParam.txt");
-            string[] words = lines[2].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            timeString = words[2];
-            if ((timeString.Substring(1, 1)) != ":")
-            {
-                UpDownSymb2 = 2;
-                UpDownSymb3 = 3;
-                UpDownSymb5 = 6;
-            }
-            else
-            {
-                UpDownSymb2 = 1;
-                UpDownSymb3 = 2;
-                UpDownSymb5 = 5;
             }
         }
 
