@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using WindowsInput.Native;
-using WindowsInput;
 using System.Management.Automation;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -49,46 +40,78 @@ namespace WindowsFormsApp1
             schtasks_check();
         }
 
-        //Checking tasks for existence and disable
+        //Checking tasks for existence, disable and fixing collisions
         private void schtasks_check()
         {
             Directory.CreateDirectory(tempPath + @"alarm");
             PowerShell PowerShellInstance = PowerShell.Create();
-            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_1 > $env:temp\alarm\schtasksList.txt");
-            PowerShellInstance.Invoke();
-            if (new FileInfo(tempPath + @"alarm\schtasksList.txt").Length == 0)
+            int[] updownarr = { Convert.ToInt32(numericUpDown1.Value), Convert.ToInt32(numericUpDown2.Value), Convert.ToInt32(numericUpDown3.Value) };
+            string[] timearr = new string[3];
+            for (int i = 0; i < 3; i++)
             {
-                File.Delete(tempPath + @"alarm\schtasksList.txt");
-                Directory.Delete(tempPath + @"alarm");
-                schtasks_create();
+                if ((updownarr[i] >= 0) && (updownarr[i] < 10))
+                    timearr[i] = "0";
+                else
+                    timearr[i] = "";
             }
-            else
-            {
-                var lines = System.IO.File.ReadAllLines(tempPath + @"alarm\schtasksList.txt");
-                MessageBox.Show(lines[2]);
-                if (Regex.IsMatch(lines[2], "Отключено") || Regex.IsMatch(lines[2], "Disabled"))
+            for (int k = 1; k < 4; k++)
+            { 
+                PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN alarm_" + k + @" > $env:temp\alarm\schtasksList.txt");
+                PowerShellInstance.Invoke();
+                if (new FileInfo(tempPath + @"alarm\schtasksList.txt").Length == 0)
                 {
                     File.Delete(tempPath + @"alarm\schtasksList.txt");
-                    Directory.Delete(tempPath + @"alarm");
-                    PowerShellInstance.AddScript(@"Enable-ScheduledTask alarm_1");
-                    PowerShellInstance.Invoke();
-                    schtasks_read();
+                    schtasks_create(k);
                 }
                 else
                 {
-                    File.Delete(tempPath + @"alarm\schtasksList.txt");
-                    schtasks_read();
+                    var lines = System.IO.File.ReadAllLines(tempPath + @"alarm\schtasksList.txt");
+                    if (Regex.IsMatch(lines[2], "Отключено") || Regex.IsMatch(lines[2], "Disabled"))
+                    {
+                        File.Delete(tempPath + @"alarm\schtasksList.txt");
+                        PowerShellInstance.AddScript(@"Enable-ScheduledTask alarm_" + k);
+                        PowerShellInstance.Invoke();
+                    }
+                }
+                schtasks_read();
+                if (k == 1)
+                {
+                    PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /F /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + " /TR C:\\yandexradio.url");
+                    PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /F /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\MouseMove.exe""");
+                    PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /F /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\VolumeSetup.exe""");
+                    PowerShellInstance.Invoke();
                 }
             }
+            Directory.Delete(tempPath + @"alarm");
         }
 
         //Creating tasks
-        private void schtasks_create()
+        private void schtasks_create(int schtasks_num)
         {
+            int[] updownarr = { Convert.ToInt32(numericUpDown1.Value), Convert.ToInt32(numericUpDown2.Value), Convert.ToInt32(numericUpDown3.Value) };
+            string[] timearr = new string[3];
+            for (int i = 0; i < 3; i++)
+            {
+                if ((updownarr[i] >= 0) && (updownarr[i] < 10))
+                    timearr[i] = "0";
+                else
+                    timearr[i] = "";
+            }
             PowerShell PowerShellInstance = PowerShell.Create();
-            PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /ST 08:00:00 /TR C:\yandexradio.url");
-            PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /ST 08:00:00 /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\MouseMove.exe""");
-            PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /ST 08:00:00 /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\VolumeSetup.exe""");
+            if (schtasks_num == 1)
+            {
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /ST 08:00:00 /TR C:\yandexradio.url");
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /F /ST 08:00:00 /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\MouseMove.exe""");
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /F /ST 08:00:00 /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\VolumeSetup.exe""");
+            }
+            else if (schtasks_num == 2)
+            {
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\MouseMove.exe""");
+            }
+            else if (schtasks_num == 3)
+            {
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\VolumeSetup.exe""");
+            }
             PowerShellInstance.Invoke();
         }
 
@@ -110,7 +133,6 @@ namespace WindowsFormsApp1
             numericUpDown2.Value = numericUpDown2_init = Convert.ToDecimal(timeString.Substring(UpDownSymb3, 2));
             numericUpDown3.Value = numericUpDown3_init = Convert.ToDecimal(timeString.Substring(UpDownSymb5));
             File.Delete(tempPath + @"alarm\schtasksList.txt");
-            Directory.Delete(tempPath + @"alarm");
         }
 
         //Reading schtasks parameters from file
@@ -158,10 +180,10 @@ namespace WindowsFormsApp1
         {
             ApplyChanges("alarm_1");
             ApplyChanges("alarm_2");
-            //ApplyChanges("alarm_3");
+            ApplyChanges("alarm_3");
         }
 
-        //Traking if mouse is down on form
+        //Traking if mouse button pressed up on form
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
             int xOffset;
@@ -176,7 +198,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        //Form moving with down mouse
+        //Form moving with pressed mouse button
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
             if (isMouseDown)
@@ -186,7 +208,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        //Traking if mouse is up on form
+        //Traking if mouse button not pressed up on form
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -215,35 +237,25 @@ namespace WindowsFormsApp1
             }
             PowerShell PowerShellInstance = PowerShell.Create();
             PowerShellInstance.AddScript(@"Schtasks /Delete /TN " + sender + " /F");
-            PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN " + sender + " /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + " /TR C:\\yandexradio.url");
+            if (Convert.ToString(sender) == "alarm_1")
+            {
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + " /TR C:\\yandexradio.url");
+            }
+            else if (Convert.ToString(sender) == "alarm_2")
+            {
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\MouseMove.exe""");
+            }
+            else if (Convert.ToString(sender) == "alarm_3")
+            {
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\VolumeSetup.exe""");
+            }
             PowerShellInstance.Invoke();
-            //PowerShellInstance.AddScript(@"Schtasks /Change /TN " + sender + " /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + " /s mtdw10nb04 /ru " + "itfb\a.podchasov" + " /rp " + "2G_uXkME-t");
-
-            /*Process p = new Process();
-            p.StartInfo.FileName = "powershell.exe";
-            p.StartInfo.Arguments = "Schtasks /Change /TN " + sender + " /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value;
-            p.StartInfo.RedirectStandardOutput = false;
-            p.StartInfo.Verb = "runas";
-            p.Start();
-            InputSimulator Simulator = new InputSimulator();
-            Simulator.Mouse.MoveMouseTo(30000, 35000);
-            Simulator.Mouse.Sleep(30);
-            Simulator.Mouse.LeftButtonClick();
-            Simulator.Mouse.Sleep(30);
-            Simulator.Keyboard.TextEntry("193203");
-            Simulator.Mouse.Sleep(30);
-            Simulator.Keyboard.KeyPress(VirtualKeyCode.RETURN);
-            Simulator.Mouse.Sleep(30);*/
-
-            /*PowerShell PowerShellInstance = PowerShell.Create();
-            PowerShellInstance.AddScript(@"Invoke-Command -ComputerName s4sh-desk -ScriptBlock {Schtasks /Change /TN alarm_1.1 /ST 00:00:00} -Credential s4sh-desk\s4sh | Out-String");
-            PowerShellInstance.Invoke();*/
             numericUpDown1_init = numericUpDown1.Value;
             numericUpDown2_init = numericUpDown2.Value;
             numericUpDown3_init = numericUpDown3.Value;
         }
 
-        //Exit form
+        //Exit scenario
         private void close_window_Click(object sender, EventArgs e)
         {
             if (Convert.ToInt32(numericUpDown1.Value) != numericUpDown1_init || Convert.ToInt32(numericUpDown2.Value) != numericUpDown2_init || Convert.ToInt32(numericUpDown3.Value) != numericUpDown3_init)
@@ -254,6 +266,7 @@ namespace WindowsFormsApp1
                 {
                     ApplyChanges("alarm_1");
                     ApplyChanges("alarm_2");
+                    ApplyChanges("alarm_3");
                     this.Close();
                 }
                 else if (result == DialogResult.No)
@@ -269,7 +282,7 @@ namespace WindowsFormsApp1
                 this.Close();
         }
 
-        //Minimizing form
+        //Minimizing form to tray
         private void minimized_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
