@@ -13,6 +13,7 @@ using WindowsInput;
 using System.Management.Automation;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace WindowsFormsApp1
 {
@@ -48,7 +49,7 @@ namespace WindowsFormsApp1
             schtasks_check();
         }
 
-        //Checking tasks for existence
+        //Checking tasks for existence and disable
         private void schtasks_check()
         {
             Directory.CreateDirectory(tempPath + @"alarm");
@@ -63,9 +64,21 @@ namespace WindowsFormsApp1
             }
             else
             {
-                File.Delete(tempPath + @"alarm\schtasksList.txt");
-                Directory.Delete(tempPath + @"alarm");
-                schtasks_read();
+                var lines = System.IO.File.ReadAllLines(tempPath + @"alarm\schtasksList.txt");
+                MessageBox.Show(lines[2]);
+                if (Regex.IsMatch(lines[2], "Отключено") || Regex.IsMatch(lines[2], "Disabled"))
+                {
+                    File.Delete(tempPath + @"alarm\schtasksList.txt");
+                    Directory.Delete(tempPath + @"alarm");
+                    PowerShellInstance.AddScript(@"Enable-ScheduledTask alarm_1");
+                    PowerShellInstance.Invoke();
+                    schtasks_read();
+                }
+                else
+                {
+                    File.Delete(tempPath + @"alarm\schtasksList.txt");
+                    schtasks_read();
+                }
             }
         }
 
@@ -88,7 +101,7 @@ namespace WindowsFormsApp1
             Collection<PSObject> pSObjects = PowerShellInstance.Invoke();
             foreach (PSObject p in pSObjects)
             {
-                StreamWriter sw = new StreamWriter(tempPath + @"schtasksParam.txt");
+                StreamWriter sw = new StreamWriter(tempPath + @"alarm\schtasksList.txt");
                 sw.WriteLine(p.ToString());
                 sw.Close();
             }
@@ -96,13 +109,14 @@ namespace WindowsFormsApp1
             numericUpDown1.Value = numericUpDown1_init = Convert.ToDecimal(timeString.Substring(0, UpDownSymb2));
             numericUpDown2.Value = numericUpDown2_init = Convert.ToDecimal(timeString.Substring(UpDownSymb3, 2));
             numericUpDown3.Value = numericUpDown3_init = Convert.ToDecimal(timeString.Substring(UpDownSymb5));
-            File.Delete(tempPath + @"schtasksParam.txt");
+            File.Delete(tempPath + @"alarm\schtasksList.txt");
+            Directory.Delete(tempPath + @"alarm");
         }
 
         //Reading schtasks parameters from file
         private void schtasks_fileread()
         {
-            var lines = System.IO.File.ReadAllLines(tempPath + @"schtasksParam.txt");
+            var lines = System.IO.File.ReadAllLines(tempPath + @"alarm\schtasksList.txt");
             string[] words = lines[2].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             timeString = words[2];
             if ((timeString.Substring(1, 1)) != ":")
