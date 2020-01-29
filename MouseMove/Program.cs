@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
 
-namespace ConsoleApp1
+namespace MouseMove
 {
     public partial class Program
     {

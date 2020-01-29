@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace WindowsFormsApp1
+namespace SettingsForm
 {
     public partial class Form1 : Form
     {
@@ -15,6 +15,7 @@ namespace WindowsFormsApp1
         public int UpDownSymb2, UpDownSymb3, UpDownSymb5;
         public string timeString;
         public string tempPath = System.IO.Path.GetTempPath();
+        public string programfilesPath = Environment.ExpandEnvironmentVariables("%ProgramFiles(x86)%");
         public bool afterTray = false;
         private Point mouseOffset;
         private bool isMouseDown = false;
@@ -76,9 +77,9 @@ namespace WindowsFormsApp1
                 schtasks_read();
                 if (k == 1)
                 {
-                    PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /F /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + " /TR C:\\yandexradio.url");
-                    PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /F /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\MouseMove.exe""");
-                    PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /F /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\VolumeSetup.exe""");
+                    PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /F /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\yandexradio.url" + '\'' + '\"');
+                    PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /F /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\MouseMove.exe" + '\'' + '\"');
+                    PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /F /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\VolumeSetup.exe" + '\'' + '\"');
                     PowerShellInstance.Invoke();
                 }
             }
@@ -100,17 +101,17 @@ namespace WindowsFormsApp1
             PowerShell PowerShellInstance = PowerShell.Create();
             if (schtasks_num == 1)
             {
-                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /ST 08:00:00 /TR C:\yandexradio.url");
-                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /F /ST 08:00:00 /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\MouseMove.exe""");
-                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /F /ST 08:00:00 /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\VolumeSetup.exe""");
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /ST 08:00:00 /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\yandexradio.url" + '\'' + '\"');
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /F /ST 08:00:00 /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\MouseMove.exe" + '\'' + '\"');
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /F /ST 08:00:00 /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\VolumeSetup.exe" + '\'' + '\"');
             }
             else if (schtasks_num == 2)
             {
-                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\MouseMove.exe""");
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\MouseMove.exe" + '\'' + '\"');
             }
             else if (schtasks_num == 3)
             {
-                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\VolumeSetup.exe""");
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\VolumeSetup.exe" + '\'' + '\"');
             }
             PowerShellInstance.Invoke();
         }
@@ -239,15 +240,15 @@ namespace WindowsFormsApp1
             PowerShellInstance.AddScript(@"Schtasks /Delete /TN " + sender + " /F");
             if (Convert.ToString(sender) == "alarm_1")
             {
-                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + " /TR C:\\yandexradio.url");
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\yandexradio.url" + '\'' + '\"');
             }
             else if (Convert.ToString(sender) == "alarm_2")
             {
-                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\MouseMove.exe""");
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\MouseMove.exe" + '\'' + '\"');
             }
             else if (Convert.ToString(sender) == "alarm_3")
             {
-                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR ""C:\Users\a.podchasov\source\repos\Alarm\ConsoleApp1\bin\Debug\VolumeSetup.exe""");
+                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\VolumeSetup.exe" + '\'' + '\"');
             }
             PowerShellInstance.Invoke();
             numericUpDown1_init = numericUpDown1.Value;
