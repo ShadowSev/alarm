@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolumeSetup", "VolumeSetup\
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{1A3FDFFB-8CE2-4712-ADDD-A95DD837A994}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seturl", "Seturl\Seturl.csproj", "{84223642-6C3A-46AF-B155-C6187964A023}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{079B3559-83BC-4513-A269-8E1B04D065EB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A3FDFFB-8CE2-4712-ADDD-A95DD837A994}.Debug|Any CPU.ActiveCfg = Debug
 		{1A3FDFFB-8CE2-4712-ADDD-A95DD837A994}.Release|Any CPU.ActiveCfg = Release
+		{84223642-6C3A-46AF-B155-C6187964A023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84223642-6C3A-46AF-B155-C6187964A023}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84223642-6C3A-46AF-B155-C6187964A023}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84223642-6C3A-46AF-B155-C6187964A023}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
