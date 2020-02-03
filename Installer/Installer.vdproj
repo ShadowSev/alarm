@@ -15,8 +15,8 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_08935F46EE6146DAAF93E1772D423858"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_18BDD40BE3AE9A9F5A46865552F2C8CA"
+        "OwnerKey" = "8:_4A7BE52CCB61430881A30A368FAFC5C2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -39,44 +39,98 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_ABE8D709346C4AD7A67306EC086CA4FA"
+        "MsmKey" = "8:_223F0D2D75834E1689A014A3D19C19EF"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4A7BE52CCB61430881A30A368FAFC5C2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5AAA639D462D7A576C16BAD959D214A4"
+        "OwnerKey" = "8:_4A7BE52CCB61430881A30A368FAFC5C2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5C61991DAA08031CFC3B014823375299"
+        "OwnerKey" = "8:_4A7BE52CCB61430881A30A368FAFC5C2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_88921F581FBF48B5944A083F471DFF35"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8ACD6EB1595E4E39809943DAB50A84DD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8DFE62A70B4E42D2A022E5A268AEE13D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_963BE90B6A2CBFFA7FF9AD081E16CF2F"
+        "OwnerKey" = "8:_4A7BE52CCB61430881A30A368FAFC5C2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_B21DAF45862B007A55E1360F6FC3DE86"
-        "OwnerKey" = "8:_F5619D52EEFB4835B018ECF39F67FC64"
+        "OwnerKey" = "8:_4A7BE52CCB61430881A30A368FAFC5C2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_B21DAF45862B007A55E1360F6FC3DE86"
-        "OwnerKey" = "8:_ABE8D709346C4AD7A67306EC086CA4FA"
+        "OwnerKey" = "8:_8DFE62A70B4E42D2A022E5A268AEE13D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C4D9202CC9974EE7A6A00080304C0192"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F5619D52EEFB4835B018ECF39F67FC64"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_B21DAF45862B007A55E1360F6FC3DE86"
+        "OwnerKey" = "8:_8ACD6EB1595E4E39809943DAB50A84DD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F5619D52EEFB4835B018ECF39F67FC64"
+        "OwnerKey" = "8:_5C61991DAA08031CFC3B014823375299"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_18BDD40BE3AE9A9F5A46865552F2C8CA"
+        "OwnerKey" = "8:_8DFE62A70B4E42D2A022E5A268AEE13D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_88921F581FBF48B5944A083F471DFF35"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8ACD6EB1595E4E39809943DAB50A84DD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4A7BE52CCB61430881A30A368FAFC5C2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -88,19 +142,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C4D9202CC9974EE7A6A00080304C0192"
+        "OwnerKey" = "8:_18BDD40BE3AE9A9F5A46865552F2C8CA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A00416BB7D684BF6B382E56BBD3DC137"
+        "OwnerKey" = "8:_5AAA639D462D7A576C16BAD959D214A4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_ABE8D709346C4AD7A67306EC086CA4FA"
+        "OwnerKey" = "8:_963BE90B6A2CBFFA7FF9AD081E16CF2F"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -143,7 +197,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\alarm2.0.004_install.msi"
+        "OutputFilename" = "8:Release\\alarm2.0.002_install.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -198,26 +252,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_08935F46EE6146DAAF93E1772D423858"
-            {
-            "SourcePath" = "8:C:\\alarm.ico"
-            "TargetName" = "8:alarm.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_18BDD40BE3AE9A9F5A46865552F2C8CA"
             {
             "AssemblyRegister" = "3:1"
@@ -225,6 +259,11 @@
             "AssemblyAsmDisplayName" = "8:Microsoft.Management.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_18BDD40BE3AE9A9F5A46865552F2C8CA"
+                    {
+                    "Name" = "8:Microsoft.Management.Infrastructure.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Microsoft.Management.Infrastructure.dll"
             "TargetName" = "8:"
@@ -284,21 +323,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_ABE8D709346C4AD7A67306EC086CA4FA"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_223F0D2D75834E1689A014A3D19C19EF"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:VolumeSetup, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_ABE8D709346C4AD7A67306EC086CA4FA"
-                    {
-                    "Name" = "8:VolumeSetup.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\VolumeSetup\\bin\\Release\\VolumeSetup.exe"
-            "TargetName" = "8:"
+            "SourcePath" = "8:C:\\alarm.ico"
+            "TargetName" = "8:alarm.ico"
             "Tag" = "8:"
             "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
             "Condition" = "8:"
@@ -315,15 +343,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B21DAF45862B007A55E1360F6FC3DE86"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5AAA639D462D7A576C16BAD959D214A4"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_5AAA639D462D7A576C16BAD959D214A4"
+                    {
+                    "Name" = "8:WindowsInput.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
-            "SourcePath" = "8:System.Management.Automation.dll"
+            "SourcePath" = "8:WindowsInput.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
@@ -341,14 +374,45 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C4D9202CC9974EE7A6A00080304C0192"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5C61991DAA08031CFC3B014823375299"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.IO.Compression, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+                "ScatterAssemblies"
+                {
+                    "_5C61991DAA08031CFC3B014823375299"
+                    {
+                    "Name" = "8:System.IO.Compression.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.IO.Compression.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_88921F581FBF48B5944A083F471DFF35"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Seturl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C4D9202CC9974EE7A6A00080304C0192"
+                    "_88921F581FBF48B5944A083F471DFF35"
                     {
                     "Name" = "8:Seturl.exe"
                     "Attributes" = "3:512"
@@ -372,14 +436,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F5619D52EEFB4835B018ECF39F67FC64"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8ACD6EB1595E4E39809943DAB50A84DD"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:MouseMove, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F5619D52EEFB4835B018ECF39F67FC64"
+                    "_8ACD6EB1595E4E39809943DAB50A84DD"
                     {
                     "Name" = "8:MouseMove.exe"
                     "Attributes" = "3:512"
@@ -401,6 +465,99 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8DFE62A70B4E42D2A022E5A268AEE13D"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:VolumeSetup, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_8DFE62A70B4E42D2A022E5A268AEE13D"
+                    {
+                    "Name" = "8:VolumeSetup.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\VolumeSetup\\bin\\Release\\VolumeSetup.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_963BE90B6A2CBFFA7FF9AD081E16CF2F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                "ScatterAssemblies"
+                {
+                    "_963BE90B6A2CBFFA7FF9AD081E16CF2F"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Net.Http.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B21DAF45862B007A55E1360F6FC3DE86"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_B21DAF45862B007A55E1360F6FC3DE86"
+                    {
+                    "Name" = "8:System.Management.Automation.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Management.Automation.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
         }
@@ -459,19 +616,19 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Alarm"
-        "ProductCode" = "8:{38571D68-85F7-4AA7-899B-7EEBA1CE37A6}"
-        "PackageCode" = "8:{4696F0DF-FE73-47B9-8704-B564A176348B}"
+        "ProductCode" = "8:{9DF6C9B7-AE9A-47ED-AD09-E1FC18730216}"
+        "PackageCode" = "8:{BBDD2C8A-0A3E-4B86-8F1C-893D333814D6}"
         "UpgradeCode" = "8:{FCC994AD-80D6-458C-8ACC-0966DF739EC9}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.1.001"
+        "ProductVersion" = "8:2.1.002"
         "Manufacturer" = "8:S4sh"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:alarm2.1.001_installl"
+        "Title" = "8:alarm2.1.002_installl"
         "Subject" = "8:"
         "ARPCONTACT" = "8:S4sh"
         "Keywords" = "8:"
@@ -580,7 +737,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_E5FF3F1F0716470DB8043F2E6F33B85B"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_7A55DB95B1DC49F593B3F6243EA21F0E"
             {
             "Name" = "8:Alarm"
             "Arguments" = "8:"
@@ -588,10 +745,10 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:"
+            "Target" = "8:_4A7BE52CCB61430881A30A368FAFC5C2"
             "Folder" = "8:_195E32F718CD480580B1CCB9CC55F29F"
             "WorkingFolder" = "8:_5248328E667148C1A6140105CAAE9815"
-            "Icon" = "8:_08935F46EE6146DAAF93E1772D423858"
+            "Icon" = "8:_223F0D2D75834E1689A014A3D19C19EF"
             "Feature" = "8:"
             }
         }
@@ -993,9 +1150,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_A00416BB7D684BF6B382E56BBD3DC137"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4A7BE52CCB61430881A30A368FAFC5C2"
             {
-            "SourcePath" = "8:..\\SettingsForm\\obj\\Debug\\Alarm.exe"
+            "SourcePath" = "8:..\\SettingsForm\\obj\\Release\\Alarm.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5248328E667148C1A6140105CAAE9815"

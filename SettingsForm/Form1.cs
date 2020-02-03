@@ -44,6 +44,10 @@ namespace SettingsForm
         //Checking tasks for existence, disable and fixing collisions
         private void schtasks_check()
         {
+            if (Directory.Exists(tempPath + @"alarm") == true)
+            {
+                Directory.Delete(tempPath + @"alarm", true);
+            }
             Directory.CreateDirectory(tempPath + @"alarm");
             PowerShell PowerShellInstance = PowerShell.Create();
             int[] updownarr = { Convert.ToInt32(numericUpDown1.Value), Convert.ToInt32(numericUpDown2.Value), Convert.ToInt32(numericUpDown3.Value) };
@@ -81,9 +85,10 @@ namespace SettingsForm
                     PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /F /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\MouseMove.exe" + '\'' + '\"');
                     PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /F /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\VolumeSetup.exe" + '\'' + '\"');
                     PowerShellInstance.Invoke();
+                    schtasks_setwake();
+                    break;
                 }
             }
-            Directory.Delete(tempPath + @"alarm");
         }
 
         //Creating tasks
@@ -116,6 +121,52 @@ namespace SettingsForm
             PowerShellInstance.Invoke();
         }
 
+        //Adding waking up settings for all schtasks
+        private void schtasks_setwake()
+        {
+            PowerShell PowerShellInstance = PowerShell.Create();
+            PowerShellInstance.AddScript(@"Export-ScheduledTask -TaskName alarm_1 | out-file " + tempPath + @"alarm\alarm_1.xml");
+            PowerShellInstance.AddScript(@"Export-ScheduledTask -TaskName alarm_2 | out-file " + tempPath + @"alarm\alarm_2.xml");
+            PowerShellInstance.AddScript(@"Export-ScheduledTask -TaskName alarm_3 | out-file " + tempPath + @"alarm\alarm_3.xml");
+            PowerShellInstance.Invoke();
+            foreach (var line in File.ReadAllLines(tempPath + @"alarm\alarm_1.xml"))
+            {
+                File.AppendAllText(tempPath + @"alarm\alarm_1_wake.xml", line + "\r\n");
+                if (line.Contains("   </IdleSettings>"))
+                {
+                    File.AppendAllText(tempPath + @"alarm\alarm_1_wake.xml", "    <WakeToRun>true</WakeToRun> \n");
+                    PowerShellInstance.Invoke();
+                }
+            }
+            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"alarm\alarm_1_wake.xml | Out-String) -TaskName alarm_1 -Force");
+            PowerShellInstance.Invoke();
+            foreach (var line in File.ReadAllLines(tempPath + @"alarm\alarm_2.xml"))
+            {
+                File.AppendAllText(tempPath + @"alarm\alarm_2_wake.xml", line + "\r\n");
+                if (line.Contains("   </IdleSettings>"))
+                {
+                    File.AppendAllText(tempPath + @"alarm\alarm_2_wake.xml", "    <WakeToRun>true</WakeToRun> \n");
+                    PowerShellInstance.Invoke();
+                }
+            }
+            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"alarm\alarm_2_wake.xml | Out-String) -TaskName alarm_2 -Force");
+            PowerShellInstance.Invoke();
+            foreach (var line in File.ReadAllLines(tempPath + @"alarm\alarm_3.xml"))
+            {
+                File.AppendAllText(tempPath + @"alarm\alarm_3_wake.xml", line + "\r\n");
+                if (line.Contains("   </IdleSettings>"))
+                {
+                    File.AppendAllText(tempPath + @"alarm\alarm_3_wake.xml", "    <WakeToRun>true</WakeToRun> \n");
+                    PowerShellInstance.Invoke();
+                }
+            }
+            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"alarm\alarm_3_wake.xml | Out-String) -TaskName alarm_3 -Force");
+            PowerShellInstance.Invoke();
+            File.Delete(tempPath + @"alarm\alarm_1_wake.xml");
+            File.Delete(tempPath + @"alarm\alarm_2_wake.xml");
+            File.Delete(tempPath + @"alarm\alarm_3_wake.xml");
+        }
+          
         //Call task --> writing task parameters to file --> redefinition task parameters --> writing parameters to variables --> deleting file
         private void schtasks_read()
         {
@@ -179,9 +230,7 @@ namespace SettingsForm
         //"Apply" button
         private void apply_button_Click(object sender, EventArgs e)
         {
-            ApplyChanges("alarm_1");
-            ApplyChanges("alarm_2");
-            ApplyChanges("alarm_3");
+            ApplyChanges();
         }
 
         //Traking if mouse button pressed up on form
@@ -224,7 +273,7 @@ namespace SettingsForm
         }
 
         //Saving edited schtasks parameters
-        private void ApplyChanges(object sender)
+        private void ApplyChanges()
         {
             int[] updownarr = { Convert.ToInt32(numericUpDown1.Value), Convert.ToInt32(numericUpDown2.Value), Convert.ToInt32(numericUpDown3.Value) };
             string[] timearr = new string[3];
@@ -237,23 +286,17 @@ namespace SettingsForm
                     timearr[i] = "";
             }
             PowerShell PowerShellInstance = PowerShell.Create();
-            PowerShellInstance.AddScript(@"Schtasks /Delete /TN " + sender + " /F");
-            if (Convert.ToString(sender) == "alarm_1")
-            {
-                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\Seturl.exe" + '\'' + '\"');
-            }
-            else if (Convert.ToString(sender) == "alarm_2")
-            {
-                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\MouseMove.exe" + '\'' + '\"');
-            }
-            else if (Convert.ToString(sender) == "alarm_3")
-            {
-                PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\VolumeSetup.exe" + '\'' + '\"');
-            }
+            PowerShellInstance.AddScript(@"Schtasks /Delete /TN alarm_1 /F");
+            PowerShellInstance.AddScript(@"Schtasks /Delete /TN alarm_2 /F");
+            PowerShellInstance.AddScript(@"Schtasks /Delete /TN alarm_3 /F");
+            PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_1 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\Seturl.exe" + '\'' + '\"');
+            PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_2 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\MouseMove.exe" + '\'' + '\"');
+            PowerShellInstance.AddScript(@"Schtasks /Create /SC daily /TN alarm_3 /ST " + timearr[0] + numericUpDown1.Value + ":" + timearr[1] + numericUpDown2.Value + ":" + timearr[2] + numericUpDown3.Value + @" /TR """ + '\'' + programfilesPath + @"\S4sh\Alarm\VolumeSetup.exe" + '\'' + '\"');
             PowerShellInstance.Invoke();
             numericUpDown1_init = numericUpDown1.Value;
             numericUpDown2_init = numericUpDown2.Value;
             numericUpDown3_init = numericUpDown3.Value;
+            schtasks_setwake();
         }
 
         //Exit scenario
@@ -265,14 +308,14 @@ namespace SettingsForm
 
                 if (result == DialogResult.Yes)
                 {
-                    ApplyChanges("alarm_1");
-                    ApplyChanges("alarm_2");
-                    ApplyChanges("alarm_3");
+                    ApplyChanges();
                     this.Close();
+                    Directory.Delete(tempPath + @"alarm", true);
                 }
                 else if (result == DialogResult.No)
                 {
                     this.Close();
+                    Directory.Delete(tempPath + @"alarm", true);
                 }
                 else if (result == DialogResult.Cancel)
                 {
@@ -280,7 +323,10 @@ namespace SettingsForm
                 }
             }
             else
+            {
                 this.Close();
+                Directory.Delete(tempPath + @"alarm", true);
+            }
         }
 
         //Minimizing form to tray
