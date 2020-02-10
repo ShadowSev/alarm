@@ -55,7 +55,7 @@ namespace SettingsForm
                 else
                     timearr[i] = "";
             }
-            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN Alarm > $env:temp\Alarm\schtasksList.txt");
+            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN AlarmVolume > $env:temp\Alarm\schtasksList.txt");
             PowerShellInstance.Invoke();
             if (new FileInfo(tempPath + @"Alarm\schtasksList.txt").Length == 0)
             {
@@ -68,15 +68,18 @@ namespace SettingsForm
                 if (Regex.IsMatch(lines[2], "Отключено") || Regex.IsMatch(lines[2], "Disabled"))
                 {
                     File.Delete(tempPath + @"Alarm\schtasksList.txt");
-                    PowerShellInstance.AddScript(@"Enable-ScheduledTask Alarm");
+                    PowerShellInstance.AddScript(@"Enable-ScheduledTask AlarmVolume");
                     PowerShellInstance.Invoke();
                 }
             }
             schtasks_read();
-            File.WriteAllText(tempPath + @"Alarm\alarm_template.xml", alarm_template(timearr[0] + numericUpDown1.Value, timearr[1] + numericUpDown2.Value, timearr[2] + numericUpDown3.Value));
-            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"Alarm\alarm_template.xml | Out-String) -TaskName Alarm -Force");
+            File.WriteAllText(tempPath + @"Alarm\volumemouse_template.xml", alarm_template(timearr[0] + numericUpDown1.Value, timearr[1] + numericUpDown2.Value, timearr[2] + numericUpDown3.Value, true));
+            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"Alarm\volumemouse_template.xml | Out-String) -TaskName AlarmVolume -Force");
+            File.WriteAllText(tempPath + @"Alarm\url_template.xml", alarm_template(timearr[0] + numericUpDown1.Value, timearr[1] + numericUpDown2.Value, timearr[2] + numericUpDown3.Value, false));
+            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"Alarm\url_template.xml | Out-String) -TaskName AlarmURL -Force");
             PowerShellInstance.Invoke();
-            File.Delete(tempPath + @"Alarm\alarm_template.xml");
+            File.Delete(tempPath + @"Alarm\volumemouse_template.xml");
+            File.Delete(tempPath + @"Alarm\url_template.xml");
         }
 
         //Creating tasks
@@ -92,21 +95,80 @@ namespace SettingsForm
                     timearr[i] = "";
             }
             PowerShell PowerShellInstance = PowerShell.Create();
-            File.WriteAllText(tempPath + @"Alarm\alarm_template.xml", alarm_template("08", "00", "00"));
-            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"Alarm\alarm_template.xml | Out-String) -TaskName Alarm -Force");
+            File.WriteAllText(tempPath + @"Alarm\volumemouse_template.xml", alarm_template("08", "00", "00", true));
+            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"Alarm\volumemouse_template.xml | Out-String) -TaskName AlarmVolume -Force");
+            File.WriteAllText(tempPath + @"Alarm\url_template.xml", alarm_template("08", "00", "00", false));
+            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"Alarm\url_template.xml | Out-String) -TaskName AlarmURL -Force");
             PowerShellInstance.Invoke();
-            File.Delete(tempPath + @"Alarm\alarm_template.xml");
+            File.Delete(tempPath + @"Alarm\volumemouse_template.xml");
+            File.Delete(tempPath + @"Alarm\url_template.xml");
         }
 
         //Xml template for schtasks import
-        private string alarm_template(string hr, string min, string sec)
+        private string alarm_template(string hr, string min, string sec, bool url)
         {
             const char doubleQuote = '"';
-            var text_template = @"<?xml version=" + doubleQuote + @"1.0" + doubleQuote + @" encoding=" + doubleQuote + @"UTF-16" + doubleQuote + @"?>
+            if (url == true)
+            {
+                var volumemouse_template = @"<?xml version=" + doubleQuote + @"1.0" + doubleQuote + @" encoding=" + doubleQuote + @"UTF-16" + doubleQuote + @"?>
 <Task version=" + doubleQuote + @"1.2" + doubleQuote + @" xmlns=" + doubleQuote + @"http://schemas.microsoft.com/windows/2004/02/mit/task" + doubleQuote + @">
   <RegistrationInfo>
-    <Author>S4SH-DESK\S4sh</Author>
-    <URI>\Alarm</URI>
+    <Author>S4sh</Author>
+    <URI>\AlarmVolume</URI>
+  </RegistrationInfo>
+  <Triggers>
+    <CalendarTrigger>
+      <StartBoundary>2020-02-05T" + hr + @":" + min + @":" + sec + @"</StartBoundary>
+      <Enabled>true</Enabled>
+      <ScheduleByDay>
+        <DaysInterval>1</DaysInterval>
+      </ScheduleByDay>
+    </CalendarTrigger>
+  </Triggers>
+  <Principals>
+    <Principal id=" + doubleQuote + @"Author" + doubleQuote + @">
+      <UserId>S-1-5-18</UserId>
+      <LogonType>InteractiveToken</LogonType>
+      <RunLevel>HighestAvailable</RunLevel>
+    </Principal>
+  </Principals>
+  <Settings>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <DisallowStartIfOnBatteries>true</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>true</StopIfGoingOnBatteries>
+    <AllowHardTerminate>true</AllowHardTerminate>
+    <StartWhenAvailable>false</StartWhenAvailable>
+    <RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable>
+    <IdleSettings>
+      <StopOnIdleEnd>true</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+    <AllowStartOnDemand>true</AllowStartOnDemand>
+    <Enabled>true</Enabled>
+    <Hidden>true</Hidden>
+    <RunOnlyIfIdle>false</RunOnlyIfIdle>
+    <WakeToRun>true</WakeToRun>
+    <ExecutionTimeLimit>PT72H</ExecutionTimeLimit>
+    <Priority>7</Priority>
+  </Settings>
+  <Actions Context=" + doubleQuote + @"Author" + doubleQuote + @">
+    <Exec>
+      <Command>" + doubleQuote + @"C:\Program Files (x86)\S4sh\Alarm\MouseMove.exe" + doubleQuote + @"</Command>
+    </Exec>
+    <Exec>
+      <Command>" + doubleQuote + @"C:\Program Files (x86)\S4sh\Alarm\VolumeSetup.exe" + doubleQuote + @"</Command>
+    </Exec>
+  </Actions>
+</Task>";
+                return (string)volumemouse_template;
+            }
+            if (url == false)
+            {
+                var url_template = @"<?xml version=" + doubleQuote + @"1.0" + doubleQuote + @" encoding=" + doubleQuote + @"UTF-16" + doubleQuote + @"?>
+<Task version=" + doubleQuote + @"1.2" + doubleQuote + @" xmlns=" + doubleQuote + @"http://schemas.microsoft.com/windows/2004/02/mit/task" + doubleQuote + @">
+  <RegistrationInfo>
+    <Author>S4sh</Author>
+    <URI>\AlarmURL</URI>
   </RegistrationInfo>
   <Triggers>
     <CalendarTrigger>
@@ -147,22 +209,18 @@ namespace SettingsForm
     <Exec>
       <Command>" + doubleQuote + @"C:\Program Files (x86)\S4sh\Alarm\Seturl.exe" + doubleQuote + @"</Command>
     </Exec>
-    <Exec>
-      <Command>" + doubleQuote + @"C:\Program Files (x86)\S4sh\Alarm\MouseMove.exe" + doubleQuote + @"</Command>
-    </Exec>
-    <Exec>
-      <Command>" + doubleQuote + @"C:\Program Files (x86)\S4sh\Alarm\VolumeSetup.exe" + doubleQuote + @"</Command>
-    </Exec>
   </Actions>
 </Task>";
-            return (string)text_template;
+                return (string)url_template;
+            }
+            return "";
         }
 
             //Call task --> writing task parameters to file --> redefinition task parameters --> writing parameters to variables --> deleting file
             private void schtasks_read()
         {
             PowerShell PowerShellInstance = PowerShell.Create();
-            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN Alarm | Out-String");
+            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN AlarmVolume | Out-String");
             PowerShellInstance.Invoke();
             Collection<PSObject> pSObjects = PowerShellInstance.Invoke();
             foreach (PSObject p in pSObjects)
@@ -277,11 +335,14 @@ namespace SettingsForm
                     timearr[i] = "";
             }
             PowerShell PowerShellInstance = PowerShell.Create();
-            PowerShellInstance.AddScript(@"Schtasks /Delete /TN Alarm /F");
-            File.WriteAllText(tempPath + @"Alarm\alarm_template.xml", alarm_template(timearr[0] + numericUpDown1.Value, timearr[1] + numericUpDown2.Value, timearr[2] + numericUpDown3.Value));
-            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"Alarm\alarm_template.xml | Out-String) -TaskName Alarm -Force");
+            PowerShellInstance.AddScript(@"Schtasks /Delete /TN AlarmVolume /F");
+            File.WriteAllText(tempPath + @"Alarm\volumemouse_template.xml", alarm_template(timearr[0] + numericUpDown1.Value, timearr[1] + numericUpDown2.Value, timearr[2] + numericUpDown3.Value, true));
+            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"Alarm\volumemouse_template.xml | Out-String) -TaskName AlarmVolume -Force");
+            File.WriteAllText(tempPath + @"Alarm\url_template.xml", alarm_template(timearr[0] + numericUpDown1.Value, timearr[1] + numericUpDown2.Value, timearr[2] + numericUpDown3.Value, false));
+            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"Alarm\url_template.xml | Out-String) -TaskName AlarmURL -Force");
             PowerShellInstance.Invoke();
-            File.Delete(tempPath + @"Alarm\alarm_template.xml");
+            File.Delete(tempPath + @"Alarm\volumemouse_template.xml");
+            File.Delete(tempPath + @"Alarm\url_template.xml");
             numericUpDown1_init = numericUpDown1.Value;
             numericUpDown2_init = numericUpDown2.Value;
             numericUpDown3_init = numericUpDown3.Value;
@@ -320,7 +381,7 @@ namespace SettingsForm
         private void schtasks_setwake()
         {
             PowerShell PowerShellInstance = PowerShell.Create();
-            PowerShellInstance.AddScript(@"Export-ScheduledTask -TaskName Alarm | out-file " + tempPath + @"Alarm\alarm.xml");
+            PowerShellInstance.AddScript(@"Export-ScheduledTask -TaskName AlarmVolume | out-file " + tempPath + @"Alarm\alarm.xml");
             PowerShellInstance.Invoke();
             foreach (var line in File.ReadAllLines(tempPath + @"Alarm\alarm.xml"))
             {
@@ -331,7 +392,7 @@ namespace SettingsForm
                     PowerShellInstance.Invoke();
                 }
             }
-            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"Alarm\alarm_wake.xml | Out-String) -TaskName Alarm -Force");
+            PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"Alarm\alarm_wake.xml | Out-String) -TaskName AlarmVolume -Force");
             PowerShellInstance.Invoke();
             File.Delete(tempPath + @"Alarm\alarm_wake.xml");
         }
