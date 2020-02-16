@@ -16,13 +16,19 @@
         "Entry"
         {
         "MsmKey" = "8:_18BDD40BE3AE9A9F5A46865552F2C8CA"
-        "OwnerKey" = "8:_6DA96117631E49F9B02E89B143084FB4"
+        "OwnerKey" = "8:_59EEEE66165D4A1E9EFF2E38EC1E3797"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_18BDD40BE3AE9A9F5A46865552F2C8CA"
         "OwnerKey" = "8:_B21DAF45862B007A55E1360F6FC3DE86"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1F56E271173B4FD186476047F69B0A9A"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -39,44 +45,32 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_55638B085C7643CAAB84E79CD11D3BD7"
+        "MsmKey" = "8:_59EEEE66165D4A1E9EFF2E38EC1E3797"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_5AAA639D462D7A576C16BAD959D214A4"
-        "OwnerKey" = "8:_6DA96117631E49F9B02E89B143084FB4"
+        "OwnerKey" = "8:_59EEEE66165D4A1E9EFF2E38EC1E3797"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_5C61991DAA08031CFC3B014823375299"
-        "OwnerKey" = "8:_6DA96117631E49F9B02E89B143084FB4"
+        "OwnerKey" = "8:_59EEEE66165D4A1E9EFF2E38EC1E3797"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6DA96117631E49F9B02E89B143084FB4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_70F0339F11444AD6AA705FA941E3BA0C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_72A1A9DCDFCB4239815DF84BC94FAF24"
+        "MsmKey" = "8:_7F491834FEB54109952829FEA1988CAF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_963BE90B6A2CBFFA7FF9AD081E16CF2F"
-        "OwnerKey" = "8:_6DA96117631E49F9B02E89B143084FB4"
+        "OwnerKey" = "8:_59EEEE66165D4A1E9EFF2E38EC1E3797"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -88,43 +82,55 @@
         "Entry"
         {
         "MsmKey" = "8:_B21DAF45862B007A55E1360F6FC3DE86"
-        "OwnerKey" = "8:_6DA96117631E49F9B02E89B143084FB4"
+        "OwnerKey" = "8:_59EEEE66165D4A1E9EFF2E38EC1E3797"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_B21DAF45862B007A55E1360F6FC3DE86"
-        "OwnerKey" = "8:_72A1A9DCDFCB4239815DF84BC94FAF24"
+        "OwnerKey" = "8:_ED3F263C39AC46D3AD36943FB58001A4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_B21DAF45862B007A55E1360F6FC3DE86"
-        "OwnerKey" = "8:_70F0339F11444AD6AA705FA941E3BA0C"
+        "OwnerKey" = "8:_7F491834FEB54109952829FEA1988CAF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_ED3F263C39AC46D3AD36943FB58001A4"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6DA96117631E49F9B02E89B143084FB4"
+        "OwnerKey" = "8:_5C61991DAA08031CFC3B014823375299"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_72A1A9DCDFCB4239815DF84BC94FAF24"
+        "OwnerKey" = "8:_ED3F263C39AC46D3AD36943FB58001A4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_55638B085C7643CAAB84E79CD11D3BD7"
+        "OwnerKey" = "8:_1F56E271173B4FD186476047F69B0A9A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_70F0339F11444AD6AA705FA941E3BA0C"
+        "OwnerKey" = "8:_7F491834FEB54109952829FEA1988CAF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_59EEEE66165D4A1E9EFF2E38EC1E3797"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -149,12 +155,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_963BE90B6A2CBFFA7FF9AD081E16CF2F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5C61991DAA08031CFC3B014823375299"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -283,6 +283,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1F56E271173B4FD186476047F69B0A9A"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Seturl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_1F56E271173B4FD186476047F69B0A9A"
+                    {
+                    "Name" = "8:Seturl.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\Seturl\\bin\\Release\\Seturl.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2C49C66A97A843BAA18C9B432DE7EB68"
             {
             "SourcePath" = "8:..\\nircmd.exe"
@@ -307,37 +338,6 @@
             {
             "SourcePath" = "8:C:\\alarm.ico"
             "TargetName" = "8:alarm.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_55638B085C7643CAAB84E79CD11D3BD7"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Seturl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_55638B085C7643CAAB84E79CD11D3BD7"
-                    {
-                    "Name" = "8:Seturl.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Seturl\\bin\\Release\\Seturl.exe"
-            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
             "Condition" = "8:"
@@ -416,51 +416,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_70F0339F11444AD6AA705FA941E3BA0C"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7F491834FEB54109952829FEA1988CAF"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:MouseMove, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_70F0339F11444AD6AA705FA941E3BA0C"
+                    "_7F491834FEB54109952829FEA1988CAF"
                     {
                     "Name" = "8:MouseMove.exe"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:..\\MouseMove\\bin\\Release\\MouseMove.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_72A1A9DCDFCB4239815DF84BC94FAF24"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:VolumeSetup, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_72A1A9DCDFCB4239815DF84BC94FAF24"
-                    {
-                    "Name" = "8:VolumeSetup.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\VolumeSetup\\bin\\Release\\VolumeSetup.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
@@ -560,6 +529,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_ED3F263C39AC46D3AD36943FB58001A4"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:VolumeSetup, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_ED3F263C39AC46D3AD36943FB58001A4"
+                    {
+                    "Name" = "8:VolumeSetup.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\VolumeSetup\\bin\\Release\\VolumeSetup.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -616,19 +616,19 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Alarm"
-        "ProductCode" = "8:{0DFA595A-1DC2-44FF-96BC-F11199F7005B}"
-        "PackageCode" = "8:{156779A8-8520-45C9-8DC3-C3605C7018A2}"
+        "ProductCode" = "8:{41B4F60A-C891-41F5-9BAA-E2A3EEB73BA2}"
+        "PackageCode" = "8:{AB7FADDC-0B11-4FFE-8C19-2A5C60A954B7}"
         "UpgradeCode" = "8:{FCC994AD-80D6-458C-8ACC-0966DF739EC9}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.2.001"
+        "ProductVersion" = "8:2.2.002"
         "Manufacturer" = "8:S4sh"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:alarm2.2.001_installl"
+        "Title" = "8:alarm2.2.002_installl"
         "Subject" = "8:"
         "ARPCONTACT" = "8:S4sh"
         "Keywords" = "8:"
@@ -737,7 +737,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6722015DA68A4B33A374FA82B2E844F7"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_45EEBDF06F0B4F06943C0808C10E7AE6"
             {
             "Name" = "8:Alarm"
             "Arguments" = "8:"
@@ -745,7 +745,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_6DA96117631E49F9B02E89B143084FB4"
+            "Target" = "8:_59EEEE66165D4A1E9EFF2E38EC1E3797"
             "Folder" = "8:_195E32F718CD480580B1CCB9CC55F29F"
             "WorkingFolder" = "8:_5248328E667148C1A6140105CAAE9815"
             "Icon" = "8:_52787EC90974428389E0B3CF5B50D87E"
@@ -1150,7 +1150,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6DA96117631E49F9B02E89B143084FB4"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_59EEEE66165D4A1E9EFF2E38EC1E3797"
             {
             "SourcePath" = "8:..\\SettingsForm\\obj\\Release\\SettingsForm.exe"
             "TargetName" = "8:"

@@ -12,8 +12,9 @@ namespace VolumeSetup
         static void Main()
         {
             const char doubleQuote = '"';
-            string script = @"
-C:\Users\S4sh\source\repos\WindowsFormsApp1\nircmd.exe setdefaultsounddevice 'Speakers' 1
+            string programFilesX86 = Environment.ExpandEnvironmentVariables("%ProgramFiles(x86)%");
+            string script = 
+@"& ${Env:ProgramFiles(x86)}\\S4sh\\Alarm\\nircmd.exe setdefaultsounddevice 'Speakers' 1
 
 Add-Type -TypeDefinition @'
 using System.Runtime.InteropServices;
@@ -66,31 +67,47 @@ public class Audio
 }
 '@
 
-
-[single]$n = 0.03;
+[audio]::Volume = 0;
+Start-Sleep -s 1;
+$n = 0.02;
 [audio]::Volume = $n;
+$n = 0.03;
 
-while ( $n - 0.01 -le 0.15 )
+while ( $n - 0.01 -le 0.14 )
 {
-  [audio]::Volume = $n;
-  $n = $n + 0.01;
-  while ( $n -le 0.1 )
-  {
-    if ( -not(get-process | where {$_.ProcessName -eq 'browser'})) 
-    { 
-        C:\Users\S4sh\source\repos\WindowsFormsApp1\nircmd.exe setdefaultsounddevice 'Headphones' 1
+    $a = [math]::Round([audio]::Volume, 2) + 0.01;
+    $aa = [string]$a
+    $nn = [string]$n  
+    if ( $aa -ne $nn )
+    {
         exit
-    }
-    Start-Sleep -s 15;
+    }  
     [audio]::Volume = $n;
     $n = $n + 0.01;
-  }
-  if ( -not(get-process | where {$_.ProcessName -eq 'browser'})) 
+    while ( $n -le 0.1 )
+    {
+        if ( -not(get-process | where {$_.ProcessName -eq 'browser'})) 
+        { 
+            & ${Env:ProgramFiles(x86)}\\S4sh\\Alarm\\nircmd.exe setdefaultsounddevice 'Headphones' 1
+            exit
+        }
+        Start-Sleep -s 15;
+        $a = [math]::Round([audio]::Volume, 2) + 0.01;
+        $aa = [string]$a
+        $nn = [string]$n
+        if ( $aa -ne $nn )
+        {
+            exit
+        }        
+        [audio]::Volume = $n;
+        $n = $n + 0.01;
+    }
+    if ( -not(get-process | where {$_.ProcessName -eq 'browser'})) 
     { 
-        C:\Users\S4sh\source\repos\WindowsFormsApp1\nircmd.exe setdefaultsounddevice 'Headphones' 1
+        & ${Env:ProgramFiles(x86)}\\S4sh\\Alarm\\nircmd.exe setdefaultsounddevice 'Headphones' 1
         exit
     }
-  Start-Sleep -s 30;
+    Start-Sleep -s 30;
 }
 
 [audio]::Volume = 0.1;
@@ -100,16 +117,21 @@ while ($n -le 720)
 {
     if ( -not(get-process | where {$_.ProcessName -eq 'browser'})) 
     { 
-        C:\Users\S4sh\source\repos\WindowsFormsApp1\nircmd.exe setdefaultsounddevice 'Headphones' 1
+        & ${Env:ProgramFiles(x86)}\\S4sh\\Alarm\\nircmd.exe setdefaultsounddevice 'Headphones' 1
         exit 
+    }
+    $a = [math]::Round([audio]::Volume, 2);
+    $aa = [string]$a
+    if ( $aa -ne 0.1 )
+    {
+        exit
     }
     $n = $n + 1;
     Start-Sleep -s 10;
 }
 
-
 Stop-Process -Name browser
-C:\Users\S4sh\source\repos\WindowsFormsApp1\nircmd.exe setdefaultsounddevice 'Headphones' 
+& ${Env:ProgramFiles(x86)}\\S4sh\\Alarm\\nircmd.exe setdefaultsounddevice 'Headphones' 
 ";
             PowerShell powerShell = PowerShell.Create();
             powerShell.AddScript(script);

@@ -5,6 +5,7 @@ using System.Management.Automation;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Security.Principal;
 
 namespace SettingsForm
 {
@@ -46,15 +47,6 @@ namespace SettingsForm
         {
             Directory.CreateDirectory(tempPath + @"Alarm");
             PowerShell PowerShellInstance = PowerShell.Create();
-            int[] updownarr = { Convert.ToInt32(numericUpDown1.Value), Convert.ToInt32(numericUpDown2.Value), Convert.ToInt32(numericUpDown3.Value) };
-            string[] timearr = new string[3];
-            for (int i = 0; i < 3; i++)
-            {
-                if ((updownarr[i] >= 0) && (updownarr[i] < 10))
-                    timearr[i] = "0";
-                else
-                    timearr[i] = "";
-            }
             PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN AlarmVolume > $env:temp\Alarm\schtasksList.txt");
             PowerShellInstance.Invoke();
             if (new FileInfo(tempPath + @"Alarm\schtasksList.txt").Length == 0)
@@ -73,6 +65,16 @@ namespace SettingsForm
                 }
             }
             schtasks_read();
+            int[] updownarr = { Convert.ToInt32(numericUpDown1.Value), Convert.ToInt32(numericUpDown2.Value), Convert.ToInt32(numericUpDown3.Value) };
+            string[] timearr = new string[3];
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine(updownarr[i]);
+                if ((updownarr[i] >= 0) && (updownarr[i] < 10))
+                    timearr[i] = "0";
+                else
+                    timearr[i] = "";
+            }
             File.WriteAllText(tempPath + @"Alarm\volumemouse_template.xml", alarm_template(timearr[0] + numericUpDown1.Value, timearr[1] + numericUpDown2.Value, timearr[2] + numericUpDown3.Value, true));
             PowerShellInstance.AddScript(@"Register-ScheduledTask -xml (Get-Content " + tempPath + @"Alarm\volumemouse_template.xml | Out-String) -TaskName AlarmVolume -Force");
             File.WriteAllText(tempPath + @"Alarm\url_template.xml", alarm_template(timearr[0] + numericUpDown1.Value, timearr[1] + numericUpDown2.Value, timearr[2] + numericUpDown3.Value, false));
@@ -153,10 +155,10 @@ namespace SettingsForm
   </Settings>
   <Actions Context=" + doubleQuote + @"Author" + doubleQuote + @">
     <Exec>
-      <Command>" + doubleQuote + @"C:\Program Files (x86)\S4sh\Alarm\MouseMove.exe" + doubleQuote + @"</Command>
+      <Command>" + doubleQuote + Environment.ExpandEnvironmentVariables(@"%ProgramFiles(x86)%") + @"\S4sh\Alarm\MouseMove.exe" + doubleQuote + @"</Command>
     </Exec>
     <Exec>
-      <Command>" + doubleQuote + @"C:\Program Files (x86)\S4sh\Alarm\VolumeSetup.exe" + doubleQuote + @"</Command>
+      <Command>" + doubleQuote + Environment.ExpandEnvironmentVariables(@"%ProgramFiles(x86)%") + @"\S4sh\Alarm\VolumeSetup.exe" + doubleQuote + @"</Command>
     </Exec>
   </Actions>
 </Task>";
@@ -181,7 +183,7 @@ namespace SettingsForm
   </Triggers>
   <Principals>
     <Principal id=" + doubleQuote + @"Author" + doubleQuote + @">
-      <UserId>S-1-5-21-1768319085-1959801792-1367335388-1001</UserId>
+      <UserId>" + WindowsIdentity.GetCurrent().User.Value + @"</UserId>
       <LogonType>InteractiveToken</LogonType>
       <RunLevel>LeastPrivilege</RunLevel>
     </Principal>
@@ -207,7 +209,7 @@ namespace SettingsForm
   </Settings>
   <Actions Context=" + doubleQuote + @"Author" + doubleQuote + @">
     <Exec>
-      <Command>" + doubleQuote + @"C:\Program Files (x86)\S4sh\Alarm\Seturl.exe" + doubleQuote + @"</Command>
+      <Command>" + doubleQuote + Environment.ExpandEnvironmentVariables(@"%ProgramFiles(x86)%") + @"\S4sh\Alarm\Seturl.exe" + doubleQuote + @"</Command>
     </Exec>
   </Actions>
 </Task>";
@@ -216,28 +218,8 @@ namespace SettingsForm
             return "";
         }
 
-            //Call task --> writing task parameters to file --> redefinition task parameters --> writing parameters to variables --> deleting file
-            private void schtasks_read()
-        {
-            PowerShell PowerShellInstance = PowerShell.Create();
-            PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN AlarmVolume | Out-String");
-            PowerShellInstance.Invoke();
-            Collection<PSObject> pSObjects = PowerShellInstance.Invoke();
-            foreach (PSObject p in pSObjects)
-            {
-                StreamWriter sw = new StreamWriter(tempPath + @"Alarm\schtasksList.txt");
-                sw.WriteLine(p.ToString());
-                sw.Close();
-            }
-            schtasks_fileread();
-            numericUpDown1.Value = numericUpDown1_init = Convert.ToDecimal(timeString.Substring(0, UpDownSymb2));
-            numericUpDown2.Value = numericUpDown2_init = Convert.ToDecimal(timeString.Substring(UpDownSymb3, 2));
-            numericUpDown3.Value = numericUpDown3_init = Convert.ToDecimal(timeString.Substring(UpDownSymb5));
-            File.Delete(tempPath + @"Alarm\schtasksList.txt");
-        }
-
-        //Reading schtasks parameters from file
-        private void schtasks_fileread()
+        //Call task --> writing task parameters to file --> redefinition task parameters --> writing parameters to variables --> deleting file
+        private void schtasks_read()
         {
             var lines = System.IO.File.ReadAllLines(tempPath + @"Alarm\schtasksList.txt");
             string[] words = lines[2].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -254,6 +236,10 @@ namespace SettingsForm
                 UpDownSymb3 = 2;
                 UpDownSymb5 = 5;
             }
+            numericUpDown1.Value = numericUpDown1_init = Convert.ToDecimal(timeString.Substring(0, UpDownSymb2));
+            numericUpDown2.Value = numericUpDown2_init = Convert.ToDecimal(timeString.Substring(UpDownSymb3, 2));
+            numericUpDown3.Value = numericUpDown3_init = Convert.ToDecimal(timeString.Substring(UpDownSymb5));
+            File.Delete(tempPath + @"Alarm\schtasksList.txt");
         }
         
         //Coloring buttons
