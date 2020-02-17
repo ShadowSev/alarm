@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Security.Principal;
+using NAudio.CoreAudioApi;
 
 namespace SettingsForm
 {
@@ -39,7 +40,32 @@ namespace SettingsForm
         //Load form
         private void Form1_Load(object sender, EventArgs e)
         {
+            audio_outputs_load();
             schtasks_check();
+        }
+
+        //Reading all audio outputs on user's PC to create settings menu
+        private void audio_outputs_load()
+        {
+            var enumerator = new MMDeviceEnumerator();
+            string[] SoundOutputCut = new string[20];
+            int i = 0;
+            foreach (var endpoint in
+                     enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
+            {
+                String SoundOutputFull = endpoint.FriendlyName as string;
+                SoundOutputCut[i] = endpoint.FriendlyName;
+                //SoundOutputCut[i] = endpoint.FriendlyName.Substring(0, endpoint.FriendlyName.IndexOf("(") - 1);
+                i = i + 1;
+            }
+            File.WriteAllLines(programfilesPath + @"\S4sh\Alarm\audio_outputs.conf", SoundOutputCut);
+            audio_settings_menu_create();
+        }
+
+        //Creating settings menu
+        private void audio_settings_menu_create()
+        {
+
         }
 
         //Checking tasks for existence, disable and fixing collisions
@@ -53,6 +79,8 @@ namespace SettingsForm
             {
                 File.Delete(tempPath + @"Alarm\schtasksList.txt");
                 schtasks_create();
+                PowerShellInstance.AddScript(@"Schtasks /Query /NH /TN AlarmVolume > $env:temp\Alarm\schtasksList.txt");
+                PowerShellInstance.Invoke();
             }
             else
             {

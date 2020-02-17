@@ -99,6 +99,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_D59A859579DF20D9B642D6EB28F3BB4E"
+        "OwnerKey" = "8:_59EEEE66165D4A1E9EFF2E38EC1E3797"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_ED3F263C39AC46D3AD36943FB58001A4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -106,7 +112,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5C61991DAA08031CFC3B014823375299"
+        "OwnerKey" = "8:_59EEEE66165D4A1E9EFF2E38EC1E3797"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -118,19 +124,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1F56E271173B4FD186476047F69B0A9A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_7F491834FEB54109952829FEA1988CAF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_59EEEE66165D4A1E9EFF2E38EC1E3797"
+        "OwnerKey" = "8:_1F56E271173B4FD186476047F69B0A9A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D59A859579DF20D9B642D6EB28F3BB4E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -155,6 +161,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_963BE90B6A2CBFFA7FF9AD081E16CF2F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_5C61991DAA08031CFC3B014823375299"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -529,6 +541,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D59A859579DF20D9B642D6EB28F3BB4E"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_D59A859579DF20D9B642D6EB28F3BB4E"
+                    {
+                    "Name" = "8:NAudio.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:NAudio.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_5248328E667148C1A6140105CAAE9815"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_ED3F263C39AC46D3AD36943FB58001A4"
             {
             "AssemblyRegister" = "3:1"
@@ -616,19 +659,19 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Alarm"
-        "ProductCode" = "8:{41B4F60A-C891-41F5-9BAA-E2A3EEB73BA2}"
-        "PackageCode" = "8:{AB7FADDC-0B11-4FFE-8C19-2A5C60A954B7}"
+        "ProductCode" = "8:{F4C9DF03-81CB-4750-992B-218958856627}"
+        "PackageCode" = "8:{86E81470-00F5-4A2C-8728-396847D8AF46}"
         "UpgradeCode" = "8:{FCC994AD-80D6-458C-8ACC-0966DF739EC9}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.2.002"
+        "ProductVersion" = "8:2.2.003"
         "Manufacturer" = "8:S4sh"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:alarm2.2.002_installl"
+        "Title" = "8:alarm2.2.003_installl"
         "Subject" = "8:"
         "ARPCONTACT" = "8:S4sh"
         "Keywords" = "8:"
