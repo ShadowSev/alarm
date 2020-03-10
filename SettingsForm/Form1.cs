@@ -183,9 +183,6 @@ namespace SettingsForm
   </Settings>
   <Actions Context=" + doubleQuote + @"Author" + doubleQuote + @">
     <Exec>
-      <Command>" + doubleQuote + Environment.ExpandEnvironmentVariables(@"%ProgramFiles(x86)%") + @"\S4sh\Alarm\MouseMove.exe" + doubleQuote + @"</Command>
-    </Exec>
-    <Exec>
       <Command>" + doubleQuote + Environment.ExpandEnvironmentVariables(@"%ProgramFiles(x86)%") + @"\S4sh\Alarm\VolumeSetup.exe" + doubleQuote + @"</Command>
     </Exec>
   </Actions>
